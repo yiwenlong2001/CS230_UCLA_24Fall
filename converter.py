@@ -120,17 +120,82 @@ class RegexToCFG:
             if rhs_list[0] is not None:
                 rhs_combined = ' | '.join(rhs_list)
                 formatted_grammar.append(f"{lhs} → {rhs_combined}")
+
+        formatted_grammar = eliminate_redundancies(formatted_grammar)
         return formatted_grammar
 
+
+def eliminate_redundancies(grammar):
+    """
+    Eliminates redundant rules from the CFG by:
+    - Removing unnecessary self-referencing or indirect recursive rules.
+    - Removing unused non-terminals.
+    """
+    # Step 1: Parse the grammar into a dictionary format
+    parsed_grammar = {}
+    for rule in grammar:
+        lhs, rhs = rule.split(" → ")
+        rhs_alternatives = rhs.split(" | ")
+        if lhs not in parsed_grammar:
+            parsed_grammar[lhs] = set(rhs_alternatives)
+        else:
+            parsed_grammar[lhs].update(rhs_alternatives)
+
+    # Step 2: Remove self-referencing and indirect recursive rules
+    def remove_self_references(parsed_grammar):
+        to_remove = set()
+        for lhs in list(parsed_grammar.keys()):
+            rhs_set = parsed_grammar[lhs]
+            # Remove direct self-references
+            if lhs in rhs_set:
+                rhs_set.discard(lhs)
+            # Remove indirect recursive rules (e.g., `S → S2` and `S2 → S`)
+            for rhs in rhs_set:
+                if rhs in parsed_grammar and lhs in parsed_grammar[rhs]:
+                    to_remove.add((lhs, rhs))
+
+        # Remove detected recursive pairs
+        for lhs, rhs in to_remove:
+            parsed_grammar[lhs].discard(rhs)
+            if not parsed_grammar[lhs]:
+                del parsed_grammar[lhs]
+
+    remove_self_references(parsed_grammar)
+
+    # Step 3: Remove unused non-terminals
+    reachable_non_terminals = {'S'}
+    added = True
+    while added:
+        added = False
+        for nt in list(reachable_non_terminals):
+            for production in parsed_grammar.get(nt, []):
+                for symbol in production.split():
+                    if symbol in parsed_grammar and symbol not in reachable_non_terminals:
+                        reachable_non_terminals.add(symbol)
+                        added = True
+    # Keep only reachable non-terminals
+    parsed_grammar = {nt: prods for nt, prods in parsed_grammar.items() if nt in reachable_non_terminals}
+
+    # Step 4: Consolidate the grammar back to list format
+    consolidated_grammar = []
+    for lhs, rhs_set in parsed_grammar.items():
+        rhs_combined = " | ".join(sorted(rhs_set))
+        consolidated_grammar.append(f"{lhs} → {rhs_combined}")
+
+    return consolidated_grammar
+
+
+# Example usage
 if __name__ == "__main__":
-    regex = ""
+    regex = "ab|cd"
     converter = RegexToCFG(regex)
     try:
         converter.parse()
         grammar = converter.get_grammar()
-        grammar.sort()
-        print(f"\nContext-Free Grammar for {regex}:")
-        for rule in grammar:
+        simplified_grammar = eliminate_redundancies(grammar)
+        simplified_grammar.sort()
+        print(f"\nSimplified Context-Free Grammar for {regex}:")
+        for rule in simplified_grammar:
             print(rule)
     except ValueError as e:
         print(f"Error: {e}")
