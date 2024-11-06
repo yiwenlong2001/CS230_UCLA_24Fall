@@ -121,8 +121,7 @@ class RegexToCFG:
                 rhs_combined = ' | '.join(rhs_list)
                 formatted_grammar.append(f"{lhs} → {rhs_combined}")
 
-        formatted_grammar = eliminate_redundancies(formatted_grammar)
-        return formatted_grammar
+        return eliminate_redundancies(formatted_grammar)
 
 
 def eliminate_redundancies(grammar):

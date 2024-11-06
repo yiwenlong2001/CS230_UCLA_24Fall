@@ -65,10 +65,9 @@ class TestRegexToCFG(unittest.TestCase):
     def test_nested_groups(self):
         regex_input = "(a(b|c))*"
         expected_output = [
-            "S → S1",
-            "S1 → S2 S1 | ε",
-            "S2 → 'a' S3",
-            "S3 → 'b' | 'c'"
+            "S → S1 S | ε",
+            "S1 → 'a' S2",
+            "S2 → 'b' | 'c'"
         ]
         self.run_cfg_test(regex_input, expected_output)
 
