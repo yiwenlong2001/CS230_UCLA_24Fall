@@ -18,33 +18,32 @@ class RegexToCFG:
 
     def parse(self):
         """Parse the regex and build the CFG."""
-        expr_symbol = self.regex_expr()
+        expr_symbol = self.regex_expr('')
         if expr_symbol != 'S':
             self.add_rule('S', expr_symbol)
         return 'S'
 
-    def regex_expr(self):
+    def regex_expr(self, status):
         """Parse an expression involving alternation."""
-        term_symbol = self.regex_term()
-        breakpoint()
+        term_symbol = self.regex_term(status)
+        # breakpoint()
         if self.peek() == '|':
             self.advance()  # Consume '|'
-            next_term = self.regex_expr()
+            next_term = self.regex_expr(status)
             # Use predefined non-terminal 'S2' for alternation
-            return_status = 'S{}'.format(self.current_status)
-            self.current_status += 1
+            return_status = 'S{}'.format(status)
             self.add_rule(return_status, term_symbol)
             self.add_rule(return_status, next_term)
             return return_status
         else:
             return term_symbol
 
-    def regex_term(self):
+    def regex_term(self, status):
         """Parse a term involving concatenation."""
         factors = []
         while True:
-            factor = self.regex_factor()
-            breakpoint()
+            factor = self.regex_factor(status)
+            # breakpoint()
             if factor:
                 factors.append(factor)
             else:
@@ -54,44 +53,50 @@ class RegexToCFG:
         elif len(factors) == 1:
             return factors[0]
         else:
-            return_status = 'S{}'.format(self.current_status)
+            return_status = 'S{}'.format(status)
             self.add_rule(return_status, factors)
-            self.current_status += 1
             return return_status
 
-    def regex_factor(self):
+    def regex_factor(self, status):
         """Parse a factor, handling Kleene star."""
-        base = self.regex_base()
-        breakpoint()
+        base, result_index = self.regex_base(status)
+        # breakpoint()
         if base and self.peek() == '*':
             self.advance()  # Consume '*'
-            return_status = 'S{}'.format(self.current_status)
+            # new_status = str(int(base[1:]) + 1) if not base == 'S' else '1'
+            self.current_status += 1
+            if result_index == 2:
+                new_status = str(int(base[1:]) + 1)
+            else:
+                new_status = str(self.current_status - 1) if status == '' else str(int(status) + self.current_status - 1)
+            return_status = 'S{}'.format(new_status)
             self.add_rule(return_status, [base, return_status])
             self.add_rule(return_status, ['ε'])
-            self.current_status += 1
             return return_status
         else:
             return base
 
-    def regex_base(self):
+    def regex_base(self, status):
         """Parse a base element: literal or grouped expression."""
         char = self.peek()
         if char is None:
-            return None
+            return None, 0
         if char == '(':
             self.advance()  # Consume '('
-            expr_symbol = self.regex_expr()
+            self.current_status += 1
+            expr_symbol = self.regex_expr(str(self.current_status - 1) if status == ''
+                                          else str(int(status) + self.current_status - 1))
             if self.peek() != ')':
                 raise ValueError("Mismatched parentheses")
             self.advance()  # Consume ')'
-            breakpoint()
-            return expr_symbol
+            # breakpoint()
+            return expr_symbol, 2
         elif char.isalnum():
             literal = f"'{char}'"
             self.advance()  # Consume character
-            return literal
+            return literal, 1
         else:
-            return None
+            return None, 0
 
     def add_rule(self, lhs, rhs):
         """Add a production rule to the grammar."""
@@ -117,7 +122,6 @@ class RegexToCFG:
             if rhs_list[0] is not None:
                 rhs_combined = ' | '.join(rhs_list)
                 formatted_grammar.append(f"{lhs} → {rhs_combined}")
-
         return eliminate_redundancies(formatted_grammar)
 
 
@@ -157,7 +161,6 @@ def eliminate_redundancies(grammar):
                 del parsed_grammar[lhs]
 
     remove_self_references(parsed_grammar)
-
     # Step 3: Remove unused non-terminals
     reachable_non_terminals = {'S'}
     added = True
@@ -183,15 +186,16 @@ def eliminate_redundancies(grammar):
 
 # Example usage
 if __name__ == "__main__":
-    regex = "(a(b|c))*"
-    converter = RegexToCFG(regex)
-    try:
-        converter.parse()
-        grammar = converter.get_grammar()
-        simplified_grammar = eliminate_redundancies(grammar)
-        simplified_grammar.sort()
-        print(f"\nSimplified Context-Free Grammar for {regex}:")
-        for rule in simplified_grammar:
-            print(rule)
-    except ValueError as e:
-        print(f"Error: {e}")
+    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*"]
+    for regex in regexs:
+        converter = RegexToCFG(regex)
+        try:
+            converter.parse()
+            grammar = converter.get_grammar()
+            simplified_grammar = eliminate_redundancies(grammar)
+            simplified_grammar.sort()
+            print(f"\nSimplified Context-Free Grammar for {regex}:")
+            for rule in simplified_grammar:
+                print(rule)
+        except ValueError as e:
+            print(f"Error: {e}")
