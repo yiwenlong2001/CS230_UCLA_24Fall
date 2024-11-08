@@ -4,7 +4,8 @@ class RegexToCFG:
         self.position = 0
         self.grammar = []
         self.non_terminals = {}
-        self.current_symbol = 'S'  # Start symbol is 'S'
+        # self.current_symbol = 'S'  # Start symbol is 'S'
+        self.current_status = 1
 
     def peek(self):
         if self.position < len(self.regex):
@@ -25,13 +26,16 @@ class RegexToCFG:
     def regex_expr(self):
         """Parse an expression involving alternation."""
         term_symbol = self.regex_term()
+        breakpoint()
         if self.peek() == '|':
             self.advance()  # Consume '|'
             next_term = self.regex_expr()
             # Use predefined non-terminal 'S2' for alternation
-            self.add_rule('S2', term_symbol)
-            self.add_rule('S2', next_term)
-            return 'S2'
+            return_status = 'S{}'.format(self.current_status)
+            self.current_status += 1
+            self.add_rule(return_status, term_symbol)
+            self.add_rule(return_status, next_term)
+            return return_status
         else:
             return term_symbol
 
@@ -40,6 +44,7 @@ class RegexToCFG:
         factors = []
         while True:
             factor = self.regex_factor()
+            breakpoint()
             if factor:
                 factors.append(factor)
             else:
@@ -49,31 +54,22 @@ class RegexToCFG:
         elif len(factors) == 1:
             return factors[0]
         else:
-            # Combine factors directly if possible
-            if self.current_symbol == 'S':
-                self.add_rule('S', factors)
-                return 'S'
-            else:
-                # Create a unique symbol for concatenation
-                symbol = self.next_symbol()
-                self.add_rule(symbol, factors)
-                return symbol
+            return_status = 'S{}'.format(self.current_status)
+            self.add_rule(return_status, factors)
+            self.current_status += 1
+            return return_status
 
     def regex_factor(self):
         """Parse a factor, handling Kleene star."""
         base = self.regex_base()
+        breakpoint()
         if base and self.peek() == '*':
             self.advance()  # Consume '*'
-            # Use predefined non-terminal 'S1' for Kleene star
-            if base == 'S2':
-                self.add_rule('S1', [base, 'S1'])
-                self.add_rule('S1', ['ε'])
-                return 'S1'
-            else:
-                symbol = 'S1'
-                self.add_rule(symbol, [base, symbol])
-                self.add_rule(symbol, ['ε'])
-                return symbol
+            return_status = 'S{}'.format(self.current_status)
+            self.add_rule(return_status, [base, return_status])
+            self.add_rule(return_status, ['ε'])
+            self.current_status += 1
+            return return_status
         else:
             return base
 
@@ -88,6 +84,7 @@ class RegexToCFG:
             if self.peek() != ')':
                 raise ValueError("Mismatched parentheses")
             self.advance()  # Consume ')'
+            breakpoint()
             return expr_symbol
         elif char.isalnum():
             literal = f"'{char}'"
@@ -186,7 +183,7 @@ def eliminate_redundancies(grammar):
 
 # Example usage
 if __name__ == "__main__":
-    regex = "ab|cd"
+    regex = "(a(b|c))*"
     converter = RegexToCFG(regex)
     try:
         converter.parse()
