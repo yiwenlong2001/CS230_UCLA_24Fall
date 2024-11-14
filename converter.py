@@ -65,23 +65,55 @@ class RegexToCFG:
             return return_status
 
     def regex_factor(self, status):
-        """Parse a factor, handling Kleene star."""
+        # """Parse a factor, handling Kleene star."""
+        # base, result_index = self.regex_base(status)
+        # # breakpoint()
+        # if base and self.peek() == '*':
+        #     self.advance()  # Consume '*'
+        #     # new_status = str(int(base[1:]) + 1) if not base == 'S' else '1'
+        #     self.current_status += 1
+        #     if result_index == 2:
+        #         new_status = str(int(base[1:]) + 1)
+        #     else:
+        #         new_status = str(self.current_status - 1) if status == '' else str(int(status) + self.current_status - 1)
+        #     return_status = 'S{}'.format(new_status)
+        #     self.add_rule(return_status, [base, return_status])
+        #     self.add_rule(return_status, ['ε'])
+        #     return return_status
+        # else:
+        #     return base
+
+
+        """Parse a factor, handling Kleene star, plus, and optional operators."""
         base, result_index = self.regex_base(status)
-        # breakpoint()
-        if base and self.peek() == '*':
-            self.advance()  # Consume '*'
-            # new_status = str(int(base[1:]) + 1) if not base == 'S' else '1'
-            self.current_status += 1
-            if result_index == 2:
-                new_status = str(int(base[1:]) + 1)
-            else:
-                new_status = str(self.current_status - 1) if status == '' else str(int(status) + self.current_status - 1)
-            return_status = 'S{}'.format(new_status)
-            self.add_rule(return_status, [base, return_status])
-            self.add_rule(return_status, ['ε'])
-            return return_status
-        else:
-            return base
+        
+        if base:
+            operator = self.peek()
+            if operator == '*':
+                self.advance()  # Consume '*'
+                new_status = f'S{self.current_status}'
+                self.add_rule(new_status, [base, new_status])
+                self.add_rule(new_status, ['ε'])
+                self.current_status += 1
+                return new_status
+            
+            elif operator == '+':  # Support for the + operator
+                self.advance()  # Consume '+'
+                new_status = f'S{self.current_status}'
+                self.add_rule(new_status, [base, new_status])
+                self.add_rule(new_status, [base])  # Ensures at least one occurrence
+                self.current_status += 1
+                return new_status
+            
+            elif operator == '?':  # Support for the ? operator
+                self.advance()  # Consume '?'
+                new_status = f'S{self.current_status}'
+                self.add_rule(new_status, [base])
+                self.add_rule(new_status, ['ε'])  # Allows zero occurrences
+                self.current_status += 1
+                return new_status
+
+        return base
 
     def regex_base(self, status):
         """Parse a base element: literal or grouped expression."""
@@ -210,16 +242,17 @@ def eliminate_redundancies(grammar):
 
 # Example usage
 if __name__ == "__main__":
-    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", r"\s", r"\w*", r"a\d"] # should test r"\d+", r"\w+\s*" after implementation of +
+    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?", r"\s", r"\w*", r"a\d"] # should test r"\d+", r"\w+\s*" after implementation of +
     for regex in regexs:
         converter = RegexToCFG(regex)
         try:
             converter.parse()
             grammar = converter.get_grammar()
-            simplified_grammar = eliminate_redundancies(grammar)
-            simplified_grammar.sort()
+            # simplified_grammar = eliminate_redundancies(grammar)
+            # simplified_grammar.sort()
+            grammar.sort()
             print(f"\nSimplified Context-Free Grammar for {regex}:")
-            for rule in simplified_grammar:
+            for rule in grammar:
                 print(rule)
         except ValueError as e:
             print(f"Error: {e}")
