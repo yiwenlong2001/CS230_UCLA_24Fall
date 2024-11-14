@@ -7,6 +7,13 @@ class RegexToCFG:
         # self.current_symbol = 'S'  # Start symbol is 'S'
         self.current_status = 1
 
+        self.special_symbols = {
+            r'\s': ["' '", "'\\t'", "'\\n'"],
+            r'\d': [f"'{i}'" for i in range(10)],
+            r'\w': [f"'{chr(i)}'" for i in range(65, 91)] + [f"'{chr(i)}'" for i in range(97, 123)] +
+                   [f"'{i}'" for i in range(10)] + ["'_'"]
+        }
+
     def peek(self):
         if self.position < len(self.regex):
             return self.regex[self.position]
@@ -81,7 +88,22 @@ class RegexToCFG:
         char = self.peek()
         if char is None:
             return None, 0
-        if char == '(':
+        
+        if char == '\\':
+            self.advance() # Consume '\'
+            next_char = self.peek()
+            if next_char and f'\\{next_char}' in self.special_symbols:
+                symbol = f'\\{next_char}'
+                self.advance() # Consume next character
+                return_symbol = f"S{self.current_status}"
+                # self.add_rule(return_symbol, self.special_symbols[symbol])
+                self.add_rule(return_symbol, ' | '.join(self.special_symbols[symbol]))
+                self.current_status += 1
+                return return_symbol, 1
+            else:
+                raise ValueError("Invalid escape sequence")
+        
+        elif char == '(':
             self.advance()  # Consume '('
             self.current_status += 1
             expr_symbol = self.regex_expr(str(self.current_status - 1) if status == ''
@@ -100,10 +122,12 @@ class RegexToCFG:
 
     def add_rule(self, lhs, rhs):
         """Add a production rule to the grammar."""
-        if isinstance(rhs, list):
-            rhs_str = ' '.join(rhs)
-        else:
-            rhs_str = rhs
+        rhs_str = ' '.join(rhs) if isinstance(rhs, list) else rhs
+        for index, (existing_lhs, existing_rhs) in enumerate(self.grammar):
+            if existing_lhs == lhs:
+                self.grammar[index] = (lhs, f"{existing_rhs} | {rhs_str}")
+                return
+        
         self.grammar.append((lhs, rhs_str))
 
     def get_grammar(self):
@@ -186,7 +210,7 @@ def eliminate_redundancies(grammar):
 
 # Example usage
 if __name__ == "__main__":
-    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*"]
+    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", r"\s", r"\w*", r"a\d"] # should test r"\d+", r"\w+\s*" after implementation of +
     for regex in regexs:
         converter = RegexToCFG(regex)
         try:
