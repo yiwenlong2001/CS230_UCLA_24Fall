@@ -289,17 +289,17 @@ def eliminate_redundancies(grammar):
 
 # Example usage
 if __name__ == "__main__":
-    # regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?", r"\s", r"\w*", r"a\d"] # should test r"\d+", r"\w+\s*" after implementation of +
-    regexs =  ["a{3}","b{2,}","c{1,3}","(ab){2,4}", "a{1}b{2,5}c{3,}" ]
+    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?", r"\s", r"\w*", r"a\d"] # should test r"\d+", r"\w+\s*" after implementation of +
+    regexs.extend(["a{3}","b{2,}","c{1,3}","(ab){2,4}", "a{1}b{2,5}c{3,}" ])
     for regex in regexs:
         converter = RegexToCFG(regex)
         try:
             converter.parse()
             grammar = converter.get_grammar()
-            # simplified_grammar = eliminate_redundancies(grammar)
-            # simplified_grammar.sort()
+            simplified_grammar = eliminate_redundancies(grammar)
+            simplified_grammar.sort()
             grammar.sort()
-            print(f"\nSimplified Context-Free Grammar for {regex}:")
+            print(f"\nSimplified Context-Free Grammar for '{regex}':")
             for rule in grammar:
                 print(rule)
         except ValueError as e:
