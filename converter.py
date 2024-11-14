@@ -1,3 +1,6 @@
+import re
+
+
 class RegexToCFG:
     def __init__(self, regex):
         self.regex = regex
@@ -65,23 +68,99 @@ class RegexToCFG:
             return return_status
 
     def regex_factor(self, status):
-        """Parse a factor, handling Kleene star."""
+        """Parse a factor, handling Kleene star, plus, and optional operators."""
         base, result_index = self.regex_base(status)
-        # breakpoint()
-        if base and self.peek() == '*':
-            self.advance()  # Consume '*'
-            # new_status = str(int(base[1:]) + 1) if not base == 'S' else '1'
-            self.current_status += 1
-            if result_index == 2:
-                new_status = str(int(base[1:]) + 1)
-            else:
-                new_status = str(self.current_status - 1) if status == '' else str(int(status) + self.current_status - 1)
-            return_status = 'S{}'.format(new_status)
-            self.add_rule(return_status, [base, return_status])
-            self.add_rule(return_status, ['ε'])
-            return return_status
-        else:
-            return base
+        
+        if base:
+            operator = self.peek()
+            if operator == '*':
+                self.advance()  # Consume '*'
+                new_status = f'S{self.current_status}'
+                self.add_rule(new_status, [base, new_status])
+                self.add_rule(new_status, ['ε'])
+                self.current_status += 1
+                return new_status
+            
+            elif operator == '+':  # Support for the + operator
+                self.advance()  # Consume '+'
+                new_status = f'S{self.current_status}'
+                self.add_rule(new_status, [base, new_status])
+                self.add_rule(new_status, [base])  # Ensures at least one occurrence
+                self.current_status += 1
+                return new_status
+            
+            elif operator == '?':  # Support for the ? operator
+                self.advance()  # Consume '?'
+                new_status = f'S{self.current_status}'
+                self.add_rule(new_status, [base])
+                self.add_rule(new_status, ['ε'])  # Allows zero occurrences
+                self.current_status += 1
+                return new_status
+
+            # Handle {m}, {m,}, and {m,n} quantifiers using regex matching
+            elif operator == '{':
+                match = re.match(r'\{(\d+)(,)?(\d+)?\}', self.regex[self.position:])
+                if match:
+                    self.position += match.end()  # Move position past the matched quantifier
+                    m = int(match.group(1))       # Extract minimum repetitions
+                    comma = match.group(2) is not None
+                    n = int(match.group(3)) if match.group(3) else None  # Extract maximum repetitions if present
+                    
+                    if n is None and comma:
+                        # Handle {m,} (m or more repetitions)
+                        start_status = f'S{self.current_status}'
+                        self.current_status += 1
+                        new_status = start_status
+                        # Add m repetitions of base
+                        for _ in range(m):
+                            current_status = f'S{self.current_status}'
+                            self.add_rule(new_status, [base, current_status])
+                            new_status = current_status
+                            self.current_status += 1
+                        # Add remaining repetitions using Kleene star logic
+                        self.add_rule(new_status, [base, new_status])
+                        self.add_rule(new_status, ['ε'])
+                        return start_status
+                    
+                    elif n is None:
+                        # Handle {m} (exactly m repetitions)
+                        start_status = f'S{self.current_status}'
+                        new_status = start_status
+                        for _ in range(m - 1):  # Add m - 1 transitions with base
+                            next_status = f'S{self.current_status + 1}'
+                            self.add_rule(new_status, [base, next_status])
+                            new_status = next_status
+                            self.current_status += 1
+                        # Final state transition with only the base
+                        self.add_rule(new_status, [base])
+                        self.current_status += 1
+                        return start_status
+                    
+                    else:
+                        # Handle {m,n} (between m and n repetitions)
+                        start_status = f'S{self.current_status}'
+                        self.current_status += 1
+                        new_status = start_status
+                        # First, add exactly `m` repetitions
+                        for _ in range(m):
+                            current_status = f'S{self.current_status}'
+                            self.add_rule(new_status, [base, current_status])
+                            new_status = current_status
+                            self.current_status += 1
+                        # Add optional repetitions up to `n`, ensuring no extra ε
+                        for i in range(m, n):
+                            if i < n:
+                                # Add ε only up to the penultimate optional state
+                                self.add_rule(new_status, ['ε'])
+                            optional_status = f'S{self.current_status}'
+                            self.add_rule(new_status, [base, optional_status])
+                            new_status = optional_status
+                            self.current_status += 1
+                        # Final ε transition after optional repetitions
+                        self.add_rule(new_status, ['ε'])
+                        return start_status
+
+        return base
 
     def regex_base(self, status):
         """Parse a base element: literal or grouped expression."""
@@ -210,7 +289,8 @@ def eliminate_redundancies(grammar):
 
 # Example usage
 if __name__ == "__main__":
-    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", r"\s", r"\w*", r"a\d"] # should test r"\d+", r"\w+\s*" after implementation of +
+    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?", r"\s", r"\w*", r"a\d"] # should test r"\d+", r"\w+\s*" after implementation of +
+    regexs.extend(["a{3}","b{2,}","c{1,3}","(ab){2,4}", "a{1}b{2,5}c{3,}" ])
     for regex in regexs:
         converter = RegexToCFG(regex)
         try:
@@ -218,8 +298,9 @@ if __name__ == "__main__":
             grammar = converter.get_grammar()
             simplified_grammar = eliminate_redundancies(grammar)
             simplified_grammar.sort()
-            print(f"\nSimplified Context-Free Grammar for {regex}:")
-            for rule in simplified_grammar:
+            grammar.sort()
+            print(f"\nSimplified Context-Free Grammar for '{regex}':")
+            for rule in grammar:
                 print(rule)
         except ValueError as e:
             print(f"Error: {e}")
