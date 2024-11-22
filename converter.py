@@ -11,10 +11,10 @@ class RegexToCFG:
         self.current_status = 1
 
         self.special_symbols = {
-            r'\s': ["' '", "'\\t'", "'\\n'"],
-            r'\d': [f"'{i}'" for i in range(10)],
-            r'\w': [f"'{chr(i)}'" for i in range(65, 91)] + [f"'{chr(i)}'" for i in range(97, 123)] +
-                   [f"'{i}'" for i in range(10)] + ["'_'"]
+            r'\s': [" ", "\\t", "\\n"],
+            r'\d': [f"{i}" for i in range(10)],
+            r'\w': [f"{chr(i)}" for i in range(65, 91)] + [f"{chr(i)}" for i in range(97, 123)] +
+                   [f"{i}" for i in range(10)] + ["'_'"]
         }
 
     def peek(self):
