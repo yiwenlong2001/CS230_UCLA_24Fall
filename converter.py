@@ -7,7 +7,7 @@ class RegexToCFG:
         self.position = 0
         self.grammar = []
         self.non_terminals = {}
-        # self.current_symbol = 'S'  # Start symbol is 'S'
+        # self.current_symbol = 's'  # Start symbol is 's'
         self.current_status = 1
 
         self.special_symbols = {
@@ -29,9 +29,9 @@ class RegexToCFG:
     def parse(self):
         """Parse the regex and build the CFG."""
         expr_symbol = self.regex_expr('')
-        if expr_symbol != 'S':
-            self.add_rule('S', expr_symbol)
-        return 'S'
+        if expr_symbol != 's':
+            self.add_rule('s', expr_symbol)
+        return 's'
 
     def regex_expr(self, status):
         """Parse an expression involving alternation."""
@@ -40,8 +40,8 @@ class RegexToCFG:
         if self.peek() == '|':
             self.advance()  # Consume '|'
             next_term = self.regex_expr(status)
-            # Use predefined non-terminal 'S2' for alternation
-            return_status = 'S{}'.format(status)
+
+            return_status = 's{}'.format(status)
             self.add_rule(return_status, term_symbol)
             self.add_rule(return_status, next_term)
             return return_status
@@ -63,7 +63,7 @@ class RegexToCFG:
         elif len(factors) == 1:
             return factors[0]
         else:
-            return_status = 'S{}'.format(status)
+            return_status = 's{}'.format(status)
             self.add_rule(return_status, factors)
             return return_status
 
@@ -75,15 +75,15 @@ class RegexToCFG:
             operator = self.peek()
             if operator == '*':
                 self.advance()  # Consume '*'
-                new_status = f'S{self.current_status}'
+                new_status = f's{self.current_status}'
                 self.add_rule(new_status, [base, new_status])
-                self.add_rule(new_status, ['ε'])
+                self.add_rule(new_status, ['EOF'])
                 self.current_status += 1
                 return new_status
             
             elif operator == '+':  # Support for the + operator
                 self.advance()  # Consume '+'
-                new_status = f'S{self.current_status}'
+                new_status = f's{self.current_status}'
                 self.add_rule(new_status, [base, new_status])
                 self.add_rule(new_status, [base])  # Ensures at least one occurrence
                 self.current_status += 1
@@ -91,9 +91,9 @@ class RegexToCFG:
             
             elif operator == '?':  # Support for the ? operator
                 self.advance()  # Consume '?'
-                new_status = f'S{self.current_status}'
+                new_status = f's{self.current_status}'
                 self.add_rule(new_status, [base])
-                self.add_rule(new_status, ['ε'])  # Allows zero occurrences
+                self.add_rule(new_status, ['EOF'])  # Allows zero occurrences
                 self.current_status += 1
                 return new_status
 
@@ -108,26 +108,26 @@ class RegexToCFG:
                     
                     if n is None and comma:
                         # Handle {m,} (m or more repetitions)
-                        start_status = f'S{self.current_status}'
+                        start_status = f's{self.current_status}'
                         self.current_status += 1
                         new_status = start_status
                         # Add m repetitions of base
                         for _ in range(m):
-                            current_status = f'S{self.current_status}'
+                            current_status = f's{self.current_status}'
                             self.add_rule(new_status, [base, current_status])
                             new_status = current_status
                             self.current_status += 1
                         # Add remaining repetitions using Kleene star logic
                         self.add_rule(new_status, [base, new_status])
-                        self.add_rule(new_status, ['ε'])
+                        self.add_rule(new_status, ['EOF'])
                         return start_status
                     
                     elif n is None:
                         # Handle {m} (exactly m repetitions)
-                        start_status = f'S{self.current_status}'
+                        start_status = f's{self.current_status}'
                         new_status = start_status
                         for _ in range(m - 1):  # Add m - 1 transitions with base
-                            next_status = f'S{self.current_status + 1}'
+                            next_status = f's{self.current_status + 1}'
                             self.add_rule(new_status, [base, next_status])
                             new_status = next_status
                             self.current_status += 1
@@ -138,12 +138,12 @@ class RegexToCFG:
                     
                     else:
                         # Handle {m,n} (between m and n repetitions)
-                        start_status = f'S{self.current_status}'
+                        start_status = f's{self.current_status}'
                         self.current_status += 1
                         new_status = start_status
                         # First, add exactly `m` repetitions
                         for _ in range(m):
-                            current_status = f'S{self.current_status}'
+                            current_status = f's{self.current_status}'
                             self.add_rule(new_status, [base, current_status])
                             new_status = current_status
                             self.current_status += 1
@@ -151,13 +151,13 @@ class RegexToCFG:
                         for i in range(m, n):
                             if i < n:
                                 # Add ε only up to the penultimate optional state
-                                self.add_rule(new_status, ['ε'])
-                            optional_status = f'S{self.current_status}'
+                                self.add_rule(new_status, ['EOF'])
+                            optional_status = f's{self.current_status}'
                             self.add_rule(new_status, [base, optional_status])
                             new_status = optional_status
                             self.current_status += 1
                         # Final ε transition after optional repetitions
-                        self.add_rule(new_status, ['ε'])
+                        self.add_rule(new_status, ['EOF'])
                         return start_status
 
         return base
@@ -174,7 +174,7 @@ class RegexToCFG:
             if next_char and f'\\{next_char}' in self.special_symbols:
                 symbol = f'\\{next_char}'
                 self.advance() # Consume next character
-                return_symbol = f"S{self.current_status}"
+                return_symbol = f"s{self.current_status}"
                 # self.add_rule(return_symbol, self.special_symbols[symbol])
                 self.add_rule(return_symbol, ' | '.join(self.special_symbols[symbol]))
                 self.current_status += 1
@@ -224,7 +224,7 @@ class RegexToCFG:
             rhs_list = combined_rules[lhs]
             if rhs_list[0] is not None:
                 rhs_combined = ' | '.join(rhs_list)
-                formatted_grammar.append(f"{lhs} → {rhs_combined}")
+                formatted_grammar.append(f"{lhs} : {rhs_combined}")
         return eliminate_redundancies(formatted_grammar)
 
 
@@ -237,7 +237,7 @@ def eliminate_redundancies(grammar):
     # Step 1: Parse the grammar into a dictionary format
     parsed_grammar = {}
     for rule in grammar:
-        lhs, rhs = rule.split(" → ")
+        lhs, rhs = rule.split(" : ")
         rhs_alternatives = rhs.split(" | ")
         if lhs not in parsed_grammar:
             parsed_grammar[lhs] = set(rhs_alternatives)
@@ -252,7 +252,7 @@ def eliminate_redundancies(grammar):
             # Remove direct self-references
             if lhs in rhs_set:
                 rhs_set.discard(lhs)
-            # Remove indirect recursive rules (e.g., `S → S2` and `S2 → S`)
+            # Remove indirect recursive rules (e.g., `s : s2` and `s2 : s`)
             for rhs in rhs_set:
                 if rhs in parsed_grammar and lhs in parsed_grammar[rhs]:
                     to_remove.add((lhs, rhs))
@@ -265,7 +265,7 @@ def eliminate_redundancies(grammar):
 
     remove_self_references(parsed_grammar)
     # Step 3: Remove unused non-terminals
-    reachable_non_terminals = {'S'}
+    reachable_non_terminals = {'s'}
     added = True
     while added:
         added = False
@@ -282,15 +282,16 @@ def eliminate_redundancies(grammar):
     consolidated_grammar = []
     for lhs, rhs_set in parsed_grammar.items():
         rhs_combined = " | ".join(sorted(rhs_set))
-        consolidated_grammar.append(f"{lhs} → {rhs_combined}")
+        consolidated_grammar.append(f"{lhs} : {rhs_combined}")
 
     return consolidated_grammar
 
 
 # Example usage
 if __name__ == "__main__":
-    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?", r"\s", r"\w*", r"a\d"] # should test r"\d+", r"\w+\s*" after implementation of +
-    regexs.extend(["a{3}","b{2,}","c{1,3}","(ab){2,4}", "a{1}b{2,5}c{3,}" ])
+    # regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?", r"\s", r"\w*", r"a\d"] # should test r"\d+", r"\w+\s*" after implementation of +
+    # regexs.extend(["a{3}","b{2,}","c{1,3}","(ab){2,4}", "a{1}b{2,5}c{3,}" ])
+    regexs = ["(a(b|c))*"]
     for regex in regexs:
         converter = RegexToCFG(regex)
         try:
@@ -300,7 +301,10 @@ if __name__ == "__main__":
             simplified_grammar.sort()
             grammar.sort()
             print(f"\nSimplified Context-Free Grammar for '{regex}':")
-            for rule in grammar:
-                print(rule)
+            with open("cfg.g4", "w") as f:
+                f.write("grammar cfg;\n")
+                for rule in grammar:
+                    f.write(rule+";\n")
+                    print(rule)
         except ValueError as e:
             print(f"Error: {e}")
