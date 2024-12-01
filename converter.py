@@ -42,6 +42,17 @@ class RegexToCFG:
 
     def regex_expr(self, status):
         """Parse an expression involving alternation."""
+        if self.peek() == '^':
+            self.advance()  # Consume '^'
+            start_anchor = f"s{self.current_status}"
+            self.add_rule(start_anchor, "'^'")
+            self.current_status += 1
+            base_expr = self.regex_expr(status)
+            return_status = f"s{self.current_status}"
+            self.add_rule(return_status, f"{start_anchor} {base_expr}")
+            self.current_status += 1
+            return return_status
+        
         term_symbol = self.regex_term(status)
         # breakpoint()
         if self.peek() == '|':
@@ -51,6 +62,17 @@ class RegexToCFG:
             return_status = 's{}'.format(status)
             self.add_rule(return_status, term_symbol)
             self.add_rule(return_status, next_term)
+            self.current_status += 1
+            return return_status
+        
+        if self.peek() == '$':
+            self.advance()  # Consume '$'
+            end_anchor = f"s{self.current_status}"
+            self.add_rule(end_anchor, "'$'")
+            self.current_status += 1
+            return_status = f"s{self.current_status}"
+            self.add_rule(return_status, f"{term_symbol} {end_anchor}")
+            self.current_status += 1
             return return_status
         else:
             return term_symbol
@@ -327,7 +349,7 @@ def eliminate_redundancies(grammar):
 
 # Example usage
 if __name__ == "__main__":
-    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?", r"\s", r"\w*", r"a\d", r"\S", r"\D", r"\W", r"\d+", r"\w+\s*"]
+    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?", r"\s", r"\w*", r"a\d", r"\S", r"\D", r"\W", r"\d+", r"\w+\s*", "^abc$", "^a(b|c)*d$", "^\d+\s*$", "a|^b$"]
     # regexs.extend(["a{3}","b{2,}","c{1,3}","(ab){2,4}", "a{1}b{2,5}c{3,}" ])
     #regexs = ["(a(b|c))*"]
     # regexs = ["[a-z]", "[A-Z]", "[0-9]", "[a-zA-Z]", "[a-f0-5]", "[a-cx-z]", "[0-3A-D]", "[-a-z]", "[a-z-]", "[a-z]*", "[0-9]+", "[A-Za-z]{3,5}", "[a-]"]
