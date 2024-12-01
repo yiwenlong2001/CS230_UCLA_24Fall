@@ -199,6 +199,10 @@ class RegexToCFG:
         
         if char == '[':  # Start of a character range
             self.advance()  # Consume '['
+            neg = False
+            if self.peek() == '^':
+                self.advance() # Consume '^'
+                neg = True
             range_symbols = []
 
             while self.peek() != ']':
@@ -220,9 +224,15 @@ class RegexToCFG:
 
             if not range_symbols:
                 raise ValueError("Empty character class")
-
-            range_rule = f"s{self.current_status}"
-            self.add_rule(range_rule, ' | '.join(range_symbols))
+            
+            if neg:
+                all_chars = [f"'{chr(i)}'" for i in range(32, 127)]
+                allowed_chars = [ch for ch in all_chars if ch not in range_symbols]
+                range_rule = f"s{self.current_status}"
+                self.add_rule(range_rule, " | ".join(allowed_chars))
+            else:
+                range_rule = f"s{self.current_status}"
+                self.add_rule(range_rule, ' | '.join(range_symbols))
             self.current_status += 1
             return range_rule, 1
         
@@ -356,7 +366,7 @@ def eliminate_redundancies(grammar):
 
 # Example usage
 if __name__ == "__main__":
-    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?", r"\s", r"\w*", r"a\d", r"\S", r"\D", r"\W", r"\d+", r"\w+\s*", "^abc$", "^a(b|c)*d$", "^\d+\s*$", "a|^b$", "a.b"]
+    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?", r"\s", r"\w*", r"a\d", r"\S", r"\D", r"\W", r"\d+", r"\w+\s*", "^abc$", "^a(b|c)*d$", "^\d+\s*$", "a|^b$", "a.b", "[a-z]", "[^a-z]", "[^a-zA-Z]"]
     # regexs.extend(["a{3}","b{2,}","c{1,3}","(ab){2,4}", "a{1}b{2,5}c{3,}" ])
     #regexs = ["(a(b|c))*"]
     # regexs = ["[a-z]", "[A-Z]", "[0-9]", "[a-zA-Z]", "[a-f0-5]", "[a-cx-z]", "[0-3A-D]", "[-a-z]", "[a-z-]", "[a-z]*", "[0-9]+", "[A-Za-z]{3,5}", "[a-]"]
