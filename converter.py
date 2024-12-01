@@ -226,6 +226,13 @@ class RegexToCFG:
             self.current_status += 1
             return range_rule, 1
         
+        if char == '.':
+            self.advance()
+            return_symbol = f"s{self.current_status}"
+            self.add_rule(return_symbol, " | ".join([f"'{chr(i)}'" for i in range(32, 127) if chr(i) != '\n']))
+            self.current_status += 1
+            return return_symbol, 1
+        
         if char == '\\':
             self.advance() # Consume '\'
             next_char = self.peek()
@@ -349,7 +356,7 @@ def eliminate_redundancies(grammar):
 
 # Example usage
 if __name__ == "__main__":
-    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?", r"\s", r"\w*", r"a\d", r"\S", r"\D", r"\W", r"\d+", r"\w+\s*", "^abc$", "^a(b|c)*d$", "^\d+\s*$", "a|^b$"]
+    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?", r"\s", r"\w*", r"a\d", r"\S", r"\D", r"\W", r"\d+", r"\w+\s*", "^abc$", "^a(b|c)*d$", "^\d+\s*$", "a|^b$", "a.b"]
     # regexs.extend(["a{3}","b{2,}","c{1,3}","(ab){2,4}", "a{1}b{2,5}c{3,}" ])
     #regexs = ["(a(b|c))*"]
     # regexs = ["[a-z]", "[A-Z]", "[0-9]", "[a-zA-Z]", "[a-f0-5]", "[a-cx-z]", "[0-3A-D]", "[-a-z]", "[a-z-]", "[a-z]*", "[0-9]+", "[A-Za-z]{3,5}", "[a-]"]
