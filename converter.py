@@ -12,9 +12,16 @@ class RegexToCFG:
 
         self.special_symbols = {
             r'\s': [" ", "\\t", "\\n"],
+            # r'\S': [f"{chr(i)}" for i in range(32, 127) if not (chr(i) in [' ', '\t', '\n'])],
+            r'\S': "(A character that is not a whitespace character)",
             r'\d': [f"{i}" for i in range(10)],
+            # r'\D': [f"{chr(i)}" for i in range(32, 127) if not ('0' <= chr(i) <= '9')],
+            r'\D': "(A character that is not a digit)",
             r'\w': [f"{chr(i)}" for i in range(65, 91)] + [f"{chr(i)}" for i in range(97, 123)] +
-                   [f"{i}" for i in range(10)] + ["'_'"]
+                   [f"{i}" for i in range(10)] + ["_"],
+            # r'\W': [f"{chr(i)}" for i in range(32, 48)] + [f"{chr(i)}" for i in range(58, 65)] +
+            #        [f"{chr(i)}" for i in range(91, 97)] + [f"{chr(i)}" for i in range(123, 127)],
+            r'\W': "(A character that is not a word character)",
         }
 
     def peek(self):
@@ -204,8 +211,10 @@ class RegexToCFG:
                 symbol = f'\\{next_char}'
                 self.advance() # Consume next character
                 return_symbol = f"s{self.current_status}"
-                # self.add_rule(return_symbol, self.special_symbols[symbol])
-                self.add_rule(return_symbol, ' | '.join(self.special_symbols[symbol]))
+                if symbol == r'\S' or symbol == r'\D' or symbol == r'\W':
+                    self.add_rule(return_symbol, self.special_symbols[symbol])
+                else:
+                    self.add_rule(return_symbol, ' | '.join(self.special_symbols[symbol]))
                 self.current_status += 1
                 return return_symbol, 1
             else:
@@ -318,10 +327,10 @@ def eliminate_redundancies(grammar):
 
 # Example usage
 if __name__ == "__main__":
-    # regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?", r"\s", r"\w*", r"a\d"] # should test r"\d+", r"\w+\s*" after implementation of +
+    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?", r"\s", r"\w*", r"a\d", r"\S", r"\D", r"\W"] # should test r"\d+", r"\w+\s*" after implementation of +
     # regexs.extend(["a{3}","b{2,}","c{1,3}","(ab){2,4}", "a{1}b{2,5}c{3,}" ])
     #regexs = ["(a(b|c))*"]
-    regexs = ["[a-z]", "[A-Z]", "[0-9]", "[a-zA-Z]", "[a-f0-5]", "[a-cx-z]", "[0-3A-D]", "[-a-z]", "[a-z-]", "[a-z]*", "[0-9]+", "[A-Za-z]{3,5}", "[a-]"]
+    # regexs = ["[a-z]", "[A-Z]", "[0-9]", "[a-zA-Z]", "[a-f0-5]", "[a-cx-z]", "[0-3A-D]", "[-a-z]", "[a-z-]", "[a-z]*", "[0-9]+", "[A-Za-z]{3,5}", "[a-]"]
 
     for regex in regexs:
         converter = RegexToCFG(regex)
