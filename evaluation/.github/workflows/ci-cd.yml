@@ -16,12 +16,6 @@ jobs:
       # Checkout the code from the repository
       - name: Checkout Code
         uses: actions/checkout@v3
-      
-      - name: Debug Working Directory
-        run: |
-          echo "Current directory: $(pwd)"
-          echo "Listing files:"
-          ls -R
 
       # Install Python, JRE, and required dependencies
       - name: Install Python, JRE, and Dependencies
@@ -34,6 +28,14 @@ jobs:
 
           # Install Python dependencies from requirements.txt
           pip3 install -r requirements.txt
+
+      # Create the required folders
+      - name: Create Directories
+        run: |
+          mkdir -p evaluation/g4_folder
+          mkdir -p evaluation/inter_folder
+          mkdir -p evaluation/test_string_folder
+          echo "Directories created successfully"
 
       # Run the Python script (converter.py)
       - name: Run Python Script

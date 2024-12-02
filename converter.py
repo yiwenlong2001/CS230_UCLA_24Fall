@@ -1,5 +1,6 @@
 import re
 import exrex
+import os
 
 class RegexToCFG:
     def __init__(self, regex):
