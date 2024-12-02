@@ -1,0 +1,54 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Replace with the branch you want to trigger the workflow on
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Use a Linux runner
+
+    steps:
+      # Checkout the code from the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      
+      - name: Debug Working Directory
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Listing files:"
+          ls -R
+
+      # Install Python, JRE, and required dependencies
+      - name: Install Python, JRE, and Dependencies
+        run: |
+          # Update apt package lists
+          sudo apt-get update
+          
+          # Install Python and JRE (default Java Runtime Environment)
+          sudo apt-get install -y python3 python3-pip default-jre
+
+          # Install Python dependencies from requirements.txt
+          pip3 install -r requirements.txt
+
+      # Run the Python script (converter.py)
+      - name: Run Python Script
+        run: |
+          # Run the Python script and log output to log_all.txt
+          python3 converter.py
+
+      # Run the shell script (evaluation.sh) located in the evaluation folder
+      - name: Run Evaluation Script
+        run: |
+          # Make the shell script executable and run it, logging output to log_all.txt
+          chmod +x evaluation/evaluation.sh
+          ./evaluation/evaluation.sh
+
+      # Output the log_all.txt to GitHub Actions log
+      - name: Show Logs
+        run: |
+          cat log_all.txt
