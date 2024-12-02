@@ -363,13 +363,21 @@ def eliminate_redundancies(grammar):
 
     return consolidated_grammar
 
+def output_to_g4(grammar, regex_index):
+    """Output the grammar to G4. Using index to prevent invalid file names."""
+
+    with open(f"cfg/cfg{regex_index}.g4", "w") as f:
+        f.write(f"grammar cfg{regex_index};\n")
+        for rule in grammar:
+            f.write(rule + ";\n")
+
 
 # Example usage
 if __name__ == "__main__":
-    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?", r"\s", r"\w*", r"a\d", r"\S", r"\D", r"\W", r"\d+", r"\w+\s*", "^abc$", "^a(b|c)*d$", "^\d+\s*$", "a|^b$", "a.b", "[a-z]", "[^a-z]", "[^a-zA-Z]"]
-    # regexs.extend(["a{3}","b{2,}","c{1,3}","(ab){2,4}", "a{1}b{2,5}c{3,}" ])
-    #regexs = ["(a(b|c))*"]
-    # regexs = ["[a-z]", "[A-Z]", "[0-9]", "[a-zA-Z]", "[a-f0-5]", "[a-cx-z]", "[0-3A-D]", "[-a-z]", "[a-z-]", "[a-z]*", "[0-9]+", "[A-Za-z]{3,5}", "[a-]"]
+    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?",
+              r"\s", r"\w*", r"a\d"]  # should test r"\d+", r"\w+\s*" after implementation of +
+    regexs.extend(["a{3}", "b{2,}", "c{1,3}", "(ab){2,4}", "a{1}b{2,5}c{3,}"])
+    # regexs = ["(a(b|c))*"]
 
     for regex in regexs:
         converter = RegexToCFG(regex)
@@ -380,11 +388,9 @@ if __name__ == "__main__":
             simplified_grammar = eliminate_redundancies(grammar)
             simplified_grammar.sort()
             grammar.sort()
-            # print(f"\nSimplified Context-Free Grammar for '{regex}':")
-            with open("cfg.g4", "w") as f:
-                f.write("grammar cfg;\n")
-                for rule in grammar:
-                    f.write(rule+";\n")
-                    print(rule)
+            print(f"\nContext-Free Grammar for '{regex}':")
+            for rule in grammar:
+                print(rule)
+            output_to_g4(grammar, regexs.index(regex))
         except ValueError as e:
             print(f"Error: {e}")
