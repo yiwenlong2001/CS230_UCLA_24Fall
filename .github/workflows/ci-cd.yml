@@ -29,6 +29,14 @@ jobs:
           # Install Python dependencies from requirements.txt
           pip3 install -r requirements.txt
 
+      # Create the required folders
+      - name: Create Directories
+        run: |
+          mkdir -p evaluation/g4_folder
+          mkdir -p evaluation/inter_folder
+          mkdir -p evaluation/test_string_folder
+          echo "Directories created successfully"
+
       # Run the Python script (converter.py)
       - name: Run Python Script
         run: |
