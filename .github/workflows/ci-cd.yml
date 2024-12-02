@@ -48,7 +48,7 @@ jobs:
         run: |
           # Make the shell script executable and run it, logging output to log_all.txt
           chmod +x evaluation/evaluation.sh
-          ./evaluation/evaluation.sh
+          ./evaluation.sh
         working-directory: evaluation
 
       # Output the log_all.txt to GitHub Actions log
