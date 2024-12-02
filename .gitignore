@@ -1,3 +1,8 @@
 
 /.idea
 /__pycache__
+./cfg
+./evaluation/log_all.txt
+./evaluation/g4_folder/
+./evaluation/inter_folder/
+./evaluation/test_string_folder/

@@ -15,7 +15,7 @@ def parse_line(parser, line):
         return False, None
 
 def main(grammar_name, code_file):
-    output_dir = f"./inter_folder/{grammar_name}"
+    output_dir = f"./inter_folder/{grammar_name}/g4_folder"
     sys.path.insert(0, output_dir)
 
     try:

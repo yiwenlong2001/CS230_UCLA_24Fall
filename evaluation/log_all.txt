@@ -1,36 +1,528 @@
 Processing grammar: cfg0
-line 1:1 extraneous input 'b' expecting {<EOF>, 'c'}
 Matching Results for grammar: cfg0
 Line 1: Matched by cfg0
-  Parse Tree: (s (s1 a) (s3 c (s3 c (s3 c (s3 c (s3 <EOF>))))))
+  Parse Tree: (s (s1 a) (s3 <EOF>))
 Line 2: Matched by cfg0
-  Parse Tree: (s (s1 a) (s3 b <EOF>))
+  Parse Tree: (s (s1 a) (s3 c (s3 <EOF>)))
+Line 3: Matched by cfg0
+  Parse Tree: (s (s1 a) (s3 c (s3 c (s3 <EOF>))))
+Line 4: Matched by cfg0
+  Parse Tree: (s (s1 a) (s3 c (s3 c (s3 c (s3 <EOF>)))))
+Line 5: Matched by cfg0
+  Parse Tree: (s (s1 a) (s3 c (s3 c (s3 c (s3 c (s3 <EOF>))))))
+Line 6: Matched by cfg0
+  Parse Tree: (s (s1 b) (s3 <EOF>))
+Line 7: Matched by cfg0
+  Parse Tree: (s (s1 b) (s3 c (s3 <EOF>)))
+Line 8: Matched by cfg0
+  Parse Tree: (s (s1 b) (s3 c (s3 c (s3 <EOF>))))
+Line 9: Matched by cfg0
+  Parse Tree: (s (s1 b) (s3 c (s3 c (s3 c (s3 <EOF>)))))
+Line 10: Matched by cfg0
+  Parse Tree: (s (s1 b) (s3 c (s3 c (s3 c (s3 c (s3 <EOF>))))))
 Processing grammar: cfg1
-line 1:1 mismatched input 'c' expecting 'b'
 Matching Results for grammar: cfg1
 Line 1: Matched by cfg1
-  Parse Tree: (s a c c c c)
-Line 2: Matched by cfg1
   Parse Tree: (s a b)
+Line 2: Matched by cfg1
+  Parse Tree: (s c d)
+Processing grammar: cfg10
+line 1:0 extraneous input 'b' expecting {<EOF>, 'a'}
+line 1:1 mismatched input '<EOF>' expecting 'b'
+line 1:0 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:0 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:0 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:0 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:0 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:0 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:0 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:0 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:0 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:1 extraneous input 'b' expecting {<EOF>, 'a'}
+line 1:2 mismatched input '<EOF>' expecting 'b'
+line 1:1 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:1 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:1 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:1 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:1 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:1 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:1 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:1 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:1 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:2 extraneous input 'b' expecting {<EOF>, 'a'}
+line 1:3 mismatched input '<EOF>' expecting 'b'
+line 1:2 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:2 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:2 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:2 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:2 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:2 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:2 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:2 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:2 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:3 extraneous input 'b' expecting {<EOF>, 'a'}
+line 1:4 mismatched input '<EOF>' expecting 'b'
+line 1:3 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:3 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:3 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:3 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:3 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:3 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:3 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:3 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:3 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:4 extraneous input 'b' expecting {<EOF>, 'a'}
+line 1:5 mismatched input '<EOF>' expecting 'b'
+line 1:4 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:4 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:4 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:4 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:4 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:4 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:4 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:4 mismatched input 'b' expecting {<EOF>, 'a'}
+line 1:4 mismatched input 'b' expecting {<EOF>, 'a'}
+Matching Results for grammar: cfg10
+Line 1: Matched by cfg10
+  Parse Tree: (s (s1 b <EOF>) s2 (s3 <EOF>))
+Line 2: Matched by cfg10
+  Parse Tree: (s s1 (s2 b) (s3 c))
+Line 3: Matched by cfg10
+  Parse Tree: (s s1 (s2 b (s2 b)) (s3 <EOF>))
+Line 4: Matched by cfg10
+  Parse Tree: (s s1 (s2 b (s2 b)) (s3 c))
+Line 5: Matched by cfg10
+  Parse Tree: (s s1 (s2 b (s2 b (s2 b))) (s3 <EOF>))
+Line 6: Matched by cfg10
+  Parse Tree: (s s1 (s2 b (s2 b (s2 b))) (s3 c))
+Line 7: Matched by cfg10
+  Parse Tree: (s s1 (s2 b (s2 b (s2 b (s2 b)))) (s3 <EOF>))
+Line 8: Matched by cfg10
+  Parse Tree: (s s1 (s2 b (s2 b (s2 b (s2 b)))) (s3 c))
+Line 9: Matched by cfg10
+  Parse Tree: (s s1 (s2 b (s2 b (s2 b (s2 b (s2 b))))) (s3 <EOF>))
+Line 10: Matched by cfg10
+  Parse Tree: (s s1 (s2 b (s2 b (s2 b (s2 b (s2 b))))) (s3 c))
+Line 11: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 b <EOF>)) s2 (s3 <EOF>))
+Line 12: Matched by cfg10
+  Parse Tree: (s (s1 a s1) (s2 b) (s3 c))
+Line 13: Matched by cfg10
+  Parse Tree: (s (s1 a s1) (s2 b (s2 b)) (s3 <EOF>))
+Line 14: Matched by cfg10
+  Parse Tree: (s (s1 a s1) (s2 b (s2 b)) (s3 c))
+Line 15: Matched by cfg10
+  Parse Tree: (s (s1 a s1) (s2 b (s2 b (s2 b))) (s3 <EOF>))
+Line 16: Matched by cfg10
+  Parse Tree: (s (s1 a s1) (s2 b (s2 b (s2 b))) (s3 c))
+Line 17: Matched by cfg10
+  Parse Tree: (s (s1 a s1) (s2 b (s2 b (s2 b (s2 b)))) (s3 <EOF>))
+Line 18: Matched by cfg10
+  Parse Tree: (s (s1 a s1) (s2 b (s2 b (s2 b (s2 b)))) (s3 c))
+Line 19: Matched by cfg10
+  Parse Tree: (s (s1 a s1) (s2 b (s2 b (s2 b (s2 b (s2 b))))) (s3 <EOF>))
+Line 20: Matched by cfg10
+  Parse Tree: (s (s1 a s1) (s2 b (s2 b (s2 b (s2 b (s2 b))))) (s3 c))
+Line 21: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 b <EOF>))) s2 (s3 <EOF>))
+Line 22: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a s1)) (s2 b) (s3 c))
+Line 23: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a s1)) (s2 b (s2 b)) (s3 <EOF>))
+Line 24: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a s1)) (s2 b (s2 b)) (s3 c))
+Line 25: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a s1)) (s2 b (s2 b (s2 b))) (s3 <EOF>))
+Line 26: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a s1)) (s2 b (s2 b (s2 b))) (s3 c))
+Line 27: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a s1)) (s2 b (s2 b (s2 b (s2 b)))) (s3 <EOF>))
+Line 28: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a s1)) (s2 b (s2 b (s2 b (s2 b)))) (s3 c))
+Line 29: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a s1)) (s2 b (s2 b (s2 b (s2 b (s2 b))))) (s3 <EOF>))
+Line 30: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a s1)) (s2 b (s2 b (s2 b (s2 b (s2 b))))) (s3 c))
+Line 31: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a (s1 b <EOF>)))) s2 (s3 <EOF>))
+Line 32: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a s1))) (s2 b) (s3 c))
+Line 33: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a s1))) (s2 b (s2 b)) (s3 <EOF>))
+Line 34: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a s1))) (s2 b (s2 b)) (s3 c))
+Line 35: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a s1))) (s2 b (s2 b (s2 b))) (s3 <EOF>))
+Line 36: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a s1))) (s2 b (s2 b (s2 b))) (s3 c))
+Line 37: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a s1))) (s2 b (s2 b (s2 b (s2 b)))) (s3 <EOF>))
+Line 38: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a s1))) (s2 b (s2 b (s2 b (s2 b)))) (s3 c))
+Line 39: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a s1))) (s2 b (s2 b (s2 b (s2 b (s2 b))))) (s3 <EOF>))
+Line 40: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a s1))) (s2 b (s2 b (s2 b (s2 b (s2 b))))) (s3 c))
+Line 41: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a (s1 a (s1 b <EOF>))))) s2 (s3 <EOF>))
+Line 42: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a (s1 a s1)))) (s2 b) (s3 c))
+Line 43: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a (s1 a s1)))) (s2 b (s2 b)) (s3 <EOF>))
+Line 44: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a (s1 a s1)))) (s2 b (s2 b)) (s3 c))
+Line 45: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a (s1 a s1)))) (s2 b (s2 b (s2 b))) (s3 <EOF>))
+Line 46: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a (s1 a s1)))) (s2 b (s2 b (s2 b))) (s3 c))
+Line 47: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a (s1 a s1)))) (s2 b (s2 b (s2 b (s2 b)))) (s3 <EOF>))
+Line 48: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a (s1 a s1)))) (s2 b (s2 b (s2 b (s2 b)))) (s3 c))
+Line 49: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a (s1 a s1)))) (s2 b (s2 b (s2 b (s2 b (s2 b))))) (s3 <EOF>))
+Line 50: Matched by cfg10
+  Parse Tree: (s (s1 a (s1 a (s1 a (s1 a s1)))) (s2 b (s2 b (s2 b (s2 b (s2 b))))) (s3 c))
+Processing grammar: cfg11
+Matching Results for grammar: cfg11
+Line 1: Matched by cfg11
+  Parse Tree: (s (s1 a (s2 a (s3 a))))
+Processing grammar: cfg12
+Matching Results for grammar: cfg12
+Line 1: Matched by cfg12
+  Parse Tree: (s (s1 b (s2 b (s3 <EOF>))))
+Line 2: Matched by cfg12
+  Parse Tree: (s (s1 b (s2 b (s3 b (s3 <EOF>)))))
+Line 3: Matched by cfg12
+  Parse Tree: (s (s1 b (s2 b (s3 b (s3 b (s3 <EOF>))))))
+Line 4: Matched by cfg12
+  Parse Tree: (s (s1 b (s2 b (s3 b (s3 b (s3 b (s3 <EOF>)))))))
+Line 5: Matched by cfg12
+  Parse Tree: (s (s1 b (s2 b (s3 b (s3 b (s3 b (s3 b (s3 <EOF>))))))))
+Processing grammar: cfg13
+Matching Results for grammar: cfg13
+Line 1: Matched by cfg13
+  Parse Tree: (s (s1 c (s2 <EOF>)))
+Line 2: Matched by cfg13
+  Parse Tree: (s (s1 c (s2 c (s3 <EOF>))))
+Line 3: Matched by cfg13
+  Parse Tree: (s (s1 c (s2 c (s3 c (s4 <EOF>)))))
+Processing grammar: cfg14
+Matching Results for grammar: cfg14
+Line 1: Matched by cfg14
+  Parse Tree: (s (s2 (s1 a b) (s3 (s1 a b) (s4 <EOF>))))
+Line 2: Matched by cfg14
+  Parse Tree: (s (s2 (s1 a b) (s3 (s1 a b) (s4 (s1 a b) (s5 <EOF>)))))
+Line 3: Matched by cfg14
+  Parse Tree: (s (s2 (s1 a b) (s3 (s1 a b) (s4 (s1 a b) (s5 (s1 a b) (s6 <EOF>))))))
+Processing grammar: cfg15
+line 1:3 mismatched input 'c' expecting {<EOF>, 'b'}
+line 1:3 mismatched input 'c' expecting {<EOF>, 'b'}
+line 1:3 mismatched input 'c' expecting {<EOF>, 'b'}
+line 1:3 mismatched input 'c' expecting {<EOF>, 'b'}
+line 1:3 mismatched input 'c' expecting {<EOF>, 'b'}
+line 1:4 mismatched input 'c' expecting {<EOF>, 'b'}
+line 1:4 mismatched input 'c' expecting {<EOF>, 'b'}
+line 1:4 mismatched input 'c' expecting {<EOF>, 'b'}
+line 1:4 mismatched input 'c' expecting {<EOF>, 'b'}
+line 1:4 mismatched input 'c' expecting {<EOF>, 'b'}
+line 1:5 mismatched input 'c' expecting {<EOF>, 'b'}
+line 1:5 mismatched input 'c' expecting {<EOF>, 'b'}
+line 1:5 mismatched input 'c' expecting {<EOF>, 'b'}
+line 1:5 mismatched input 'c' expecting {<EOF>, 'b'}
+line 1:5 mismatched input 'c' expecting {<EOF>, 'b'}
+line 1:6 missing <EOF> at 'c'
+line 1:6 missing <EOF> at 'c'
+line 1:6 missing <EOF> at 'c'
+line 1:6 missing <EOF> at 'c'
+line 1:6 missing <EOF> at 'c'
+Matching Results for grammar: cfg15
+Line 1: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b s4)) (s8 c (s9 c (s10 c (s11 <EOF>)))))
+Line 2: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b s4)) (s8 c (s9 c (s10 c (s11 c (s11 <EOF>))))))
+Line 3: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b s4)) (s8 c (s9 c (s10 c (s11 c (s11 c (s11 <EOF>)))))))
+Line 4: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b s4)) (s8 c (s9 c (s10 c (s11 c (s11 c (s11 c (s11 <EOF>))))))))
+Line 5: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b s4)) (s8 c (s9 c (s10 c (s11 c (s11 c (s11 c (s11 c (s11 <EOF>)))))))))
+Line 6: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b (s4 b s5))) (s8 c (s9 c (s10 c (s11 <EOF>)))))
+Line 7: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b (s4 b s5))) (s8 c (s9 c (s10 c (s11 c (s11 <EOF>))))))
+Line 8: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b (s4 b s5))) (s8 c (s9 c (s10 c (s11 c (s11 c (s11 <EOF>)))))))
+Line 9: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b (s4 b s5))) (s8 c (s9 c (s10 c (s11 c (s11 c (s11 c (s11 <EOF>))))))))
+Line 10: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b (s4 b s5))) (s8 c (s9 c (s10 c (s11 c (s11 c (s11 c (s11 c (s11 <EOF>)))))))))
+Line 11: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b (s4 b (s5 b s6)))) (s8 c (s9 c (s10 c (s11 <EOF>)))))
+Line 12: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b (s4 b (s5 b s6)))) (s8 c (s9 c (s10 c (s11 c (s11 <EOF>))))))
+Line 13: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b (s4 b (s5 b s6)))) (s8 c (s9 c (s10 c (s11 c (s11 c (s11 <EOF>)))))))
+Line 14: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b (s4 b (s5 b s6)))) (s8 c (s9 c (s10 c (s11 c (s11 c (s11 c (s11 <EOF>))))))))
+Line 15: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b (s4 b (s5 b s6)))) (s8 c (s9 c (s10 c (s11 c (s11 c (s11 c (s11 c (s11 <EOF>)))))))))
+Line 16: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b (s4 b (s5 b (s6 b (s7 <EOF>)))))) (s8 c (s9 c (s10 c (s11 <EOF>)))))
+Line 17: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b (s4 b (s5 b (s6 b (s7 <EOF>)))))) (s8 c (s9 c (s10 c (s11 c (s11 <EOF>))))))
+Line 18: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b (s4 b (s5 b (s6 b (s7 <EOF>)))))) (s8 c (s9 c (s10 c (s11 c (s11 c (s11 <EOF>)))))))
+Line 19: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b (s4 b (s5 b (s6 b (s7 <EOF>)))))) (s8 c (s9 c (s10 c (s11 c (s11 c (s11 c (s11 <EOF>))))))))
+Line 20: Matched by cfg15
+  Parse Tree: (s (s1 a) (s2 b (s3 b (s4 b (s5 b (s6 b (s7 <EOF>)))))) (s8 c (s9 c (s10 c (s11 c (s11 c (s11 c (s11 c (s11 <EOF>)))))))))
 Processing grammar: cfg2
-line 1:1 token recognition error at: 'c'
-line 1:2 token recognition error at: 'c'
-line 1:3 token recognition error at: 'c'
-line 1:4 token recognition error at: 'c'
-line 1:5 missing 'd' at '<EOF>'
-line 1:1 token recognition error at: 'b'
+line 1:0 extraneous input 'd' expecting {<EOF>, 'a'}
+line 1:1 missing 'd' at '<EOF>'
+line 1:1 extraneous input 'd' expecting {<EOF>, 'a'}
 line 1:2 missing 'd' at '<EOF>'
+line 1:2 extraneous input 'd' expecting {<EOF>, 'a'}
+line 1:3 missing 'd' at '<EOF>'
+line 1:3 extraneous input 'd' expecting {<EOF>, 'a'}
+line 1:4 missing 'd' at '<EOF>'
+line 1:4 extraneous input 'd' expecting {<EOF>, 'a'}
+line 1:5 missing 'd' at '<EOF>'
 Matching Results for grammar: cfg2
 Line 1: Matched by cfg2
-  Parse Tree: (s (s1 a (s1 <EOF>)) <missing 'd'>)
+  Parse Tree: (s (s1 d <EOF>) <missing 'd'>)
 Line 2: Matched by cfg2
-  Parse Tree: (s (s1 a (s1 <EOF>)) <missing 'd'>)
+  Parse Tree: (s (s1 a (s1 d <EOF>)) <missing 'd'>)
+Line 3: Matched by cfg2
+  Parse Tree: (s (s1 a (s1 a (s1 d <EOF>))) <missing 'd'>)
+Line 4: Matched by cfg2
+  Parse Tree: (s (s1 a (s1 a (s1 a (s1 d <EOF>)))) <missing 'd'>)
+Line 5: Matched by cfg2
+  Parse Tree: (s (s1 a (s1 a (s1 a (s1 a (s1 d <EOF>))))) <missing 'd'>)
 Processing grammar: cfg3
-line 1:5 missing 'd' at '<EOF>'
+line 1:1 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
 line 1:2 missing 'd' at '<EOF>'
+line 1:2 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:3 missing 'd' at '<EOF>'
+line 1:2 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:3 missing 'd' at '<EOF>'
+line 1:3 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:4 missing 'd' at '<EOF>'
+line 1:3 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:4 missing 'd' at '<EOF>'
+line 1:3 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:4 missing 'd' at '<EOF>'
+line 1:3 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:4 missing 'd' at '<EOF>'
+line 1:4 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:5 missing 'd' at '<EOF>'
+line 1:4 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:5 missing 'd' at '<EOF>'
+line 1:4 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:5 missing 'd' at '<EOF>'
+line 1:4 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:5 missing 'd' at '<EOF>'
+line 1:4 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:5 missing 'd' at '<EOF>'
+line 1:4 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:5 missing 'd' at '<EOF>'
+line 1:4 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:5 missing 'd' at '<EOF>'
+line 1:4 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:5 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
+line 1:5 extraneous input 'd' expecting {<EOF>, 'b', 'c'}
+line 1:6 missing 'd' at '<EOF>'
 Matching Results for grammar: cfg3
 Line 1: Matched by cfg3
-  Parse Tree: (s a (s3 (s1 c) (s3 (s1 c) (s3 (s1 c) (s3 (s1 c) (s3 <EOF>))))) <missing 'd'>)
+  Parse Tree: (s a (s3 d <EOF>) <missing 'd'>)
 Line 2: Matched by cfg3
-  Parse Tree: (s a (s3 (s1 b) (s3 <EOF>)) <missing 'd'>)
+  Parse Tree: (s a (s3 (s1 b) (s3 d <EOF>)) <missing 'd'>)
+Line 3: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 c) (s3 d <EOF>)) <missing 'd'>)
+Line 4: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 b) (s3 (s1 b) (s3 d <EOF>))) <missing 'd'>)
+Line 5: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 b) (s3 (s1 c) (s3 d <EOF>))) <missing 'd'>)
+Line 6: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 c) (s3 (s1 b) (s3 d <EOF>))) <missing 'd'>)
+Line 7: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 c) (s3 (s1 c) (s3 d <EOF>))) <missing 'd'>)
+Line 8: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 b) (s3 (s1 b) (s3 (s1 b) (s3 d <EOF>)))) <missing 'd'>)
+Line 9: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 b) (s3 (s1 b) (s3 (s1 c) (s3 d <EOF>)))) <missing 'd'>)
+Line 10: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 b) (s3 (s1 c) (s3 (s1 b) (s3 d <EOF>)))) <missing 'd'>)
+Line 11: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 b) (s3 (s1 c) (s3 (s1 c) (s3 d <EOF>)))) <missing 'd'>)
+Line 12: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 c) (s3 (s1 b) (s3 (s1 b) (s3 d <EOF>)))) <missing 'd'>)
+Line 13: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 c) (s3 (s1 b) (s3 (s1 c) (s3 d <EOF>)))) <missing 'd'>)
+Line 14: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 c) (s3 (s1 c) (s3 (s1 b) (s3 d <EOF>)))) <missing 'd'>)
+Line 15: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 c) (s3 (s1 c) (s3 (s1 c) (s3 d <EOF>)))) <missing 'd'>)
+Line 16: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 b) (s3 (s1 b) (s3 (s1 b) (s3 (s1 b) (s3 d <EOF>))))) <missing 'd'>)
+Line 17: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 b) (s3 (s1 b) (s3 (s1 b) (s3 (s1 c) (s3 d <EOF>))))) <missing 'd'>)
+Line 18: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 b) (s3 (s1 b) (s3 (s1 c) (s3 (s1 b) (s3 d <EOF>))))) <missing 'd'>)
+Line 19: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 b) (s3 (s1 b) (s3 (s1 c) (s3 (s1 c) (s3 d <EOF>))))) <missing 'd'>)
+Line 20: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 b) (s3 (s1 c) (s3 (s1 b) (s3 (s1 b) (s3 d <EOF>))))) <missing 'd'>)
+Line 21: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 b) (s3 (s1 c) (s3 (s1 b) (s3 (s1 c) (s3 d <EOF>))))) <missing 'd'>)
+Line 22: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 b) (s3 (s1 c) (s3 (s1 c) (s3 (s1 b) (s3 d <EOF>))))) <missing 'd'>)
+Line 23: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 b) (s3 (s1 c) (s3 (s1 c) (s3 (s1 c) (s3 d <EOF>))))) <missing 'd'>)
+Line 24: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 c) (s3 (s1 b) (s3 (s1 b) (s3 (s1 b) (s3 d <EOF>))))) <missing 'd'>)
+Line 25: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 c) (s3 (s1 b) (s3 (s1 b) (s3 (s1 c) (s3 d <EOF>))))) <missing 'd'>)
+Line 26: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 c) (s3 (s1 b) (s3 (s1 c) (s3 (s1 b) (s3 d <EOF>))))) <missing 'd'>)
+Line 27: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 c) (s3 (s1 b) (s3 (s1 c) (s3 (s1 c) (s3 d <EOF>))))) <missing 'd'>)
+Line 28: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 c) (s3 (s1 c) (s3 (s1 b) (s3 (s1 b) (s3 d <EOF>))))) <missing 'd'>)
+Line 29: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 c) (s3 (s1 c) (s3 (s1 b) (s3 (s1 c) (s3 d <EOF>))))) <missing 'd'>)
+Line 30: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 c) (s3 (s1 c) (s3 (s1 c) (s3 (s1 b) (s3 d <EOF>))))) <missing 'd'>)
+Line 31: Matched by cfg3
+  Parse Tree: (s a (s3 (s1 c) (s3 (s1 c) (s3 (s1 c) (s3 (s1 c) (s3 d <EOF>))))) <missing 'd'>)
+Processing grammar: cfg4
+Matching Results for grammar: cfg4
+Line 1: Matched by cfg4
+  Parse Tree: (s a)
+Processing grammar: cfg5
+Matching Results for grammar: cfg5
+Line 2: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 b)) (s4 <EOF>)))
+Line 3: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 c)) (s4 <EOF>)))
+Line 4: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 <EOF>))))
+Line 5: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 <EOF>))))
+Line 6: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 <EOF>))))
+Line 7: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 <EOF>))))
+Line 8: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 <EOF>)))))
+Line 9: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 <EOF>)))))
+Line 10: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 <EOF>)))))
+Line 11: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 <EOF>)))))
+Line 12: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 <EOF>)))))
+Line 13: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 <EOF>)))))
+Line 14: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 <EOF>)))))
+Line 15: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 <EOF>)))))
+Line 16: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 <EOF>))))))
+Line 17: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 <EOF>))))))
+Line 18: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 <EOF>))))))
+Line 19: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 <EOF>))))))
+Line 20: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 <EOF>))))))
+Line 21: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 <EOF>))))))
+Line 22: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 <EOF>))))))
+Line 23: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 <EOF>))))))
+Line 24: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 <EOF>))))))
+Line 25: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 <EOF>))))))
+Line 26: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 <EOF>))))))
+Line 27: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 <EOF>))))))
+Line 28: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 b)) (s4 <EOF>))))))
+Line 29: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 (s1 a (s3 c)) (s4 <EOF>))))))
+Line 30: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 b)) (s4 <EOF>))))))
+Line 31: Matched by cfg5
+  Parse Tree: (s (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 (s1 a (s3 c)) (s4 <EOF>))))))
+Processing grammar: cfg6
+Matching Results for grammar: cfg6
+Line 1: Matched by cfg6
+  Parse Tree: (s (s1 a))
+Line 2: Matched by cfg6
+  Parse Tree: (s (s1 a (s1 a)))
+Line 3: Matched by cfg6
+  Parse Tree: (s (s1 a (s1 a (s1 a))))
+Line 4: Matched by cfg6
+  Parse Tree: (s (s1 a (s1 a (s1 a (s1 a)))))
+Line 5: Matched by cfg6
+  Parse Tree: (s (s1 a (s1 a (s1 a (s1 a (s1 a))))))
+Processing grammar: cfg7
+Matching Results for grammar: cfg7
+Line 2: Matched by cfg7
+  Parse Tree: (s (s1 b))
+Processing grammar: cfg8
+Matching Results for grammar: cfg8
+Line 1: Matched by cfg8
+  Parse Tree: (s (s2 (s1 a b)))
+Line 2: Matched by cfg8
+  Parse Tree: (s (s2 (s1 a b) (s2 (s1 a b))))
+Line 3: Matched by cfg8
+  Parse Tree: (s (s2 (s1 a b) (s2 (s1 a b) (s2 (s1 a b)))))
+Line 4: Matched by cfg8
+  Parse Tree: (s (s2 (s1 a b) (s2 (s1 a b) (s2 (s1 a b) (s2 (s1 a b))))))
+Line 5: Matched by cfg8
+  Parse Tree: (s (s2 (s1 a b) (s2 (s1 a b) (s2 (s1 a b) (s2 (s1 a b) (s2 (s1 a b)))))))
+Processing grammar: cfg9
+Matching Results for grammar: cfg9
+Line 1: Matched by cfg9
+  Parse Tree: (s a (s2 <EOF>))
+Line 2: Matched by cfg9
+  Parse Tree: (s a (s2 (s1 b c)))
 Evaluation completed. Results saved to log_all.txt

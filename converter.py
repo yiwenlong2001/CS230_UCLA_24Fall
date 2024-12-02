@@ -1,5 +1,5 @@
 import re
-
+import exrex
 
 class RegexToCFG:
     def __init__(self, regex):
@@ -365,21 +365,28 @@ def eliminate_redundancies(grammar):
 
 def output_to_g4(grammar, regex_index):
     """Output the grammar to G4. Using index to prevent invalid file names."""
-
-    with open(f"cfg/cfg{regex_index}.g4", "w") as f:
+    with open(f"evaluation/g4_folder/cfg{regex_index}.g4", "w") as f:
         f.write(f"grammar cfg{regex_index};\n")
         for rule in grammar:
             f.write(rule + ";\n")
 
+        f.write("\n")
+        f.write('WS : [ \\t\\r\\n]+ -> skip ;')
+
+def generate_test_string(idx, regex):
+    all_matches = list(exrex.generate(regex, limit=5))
+    with open(f"evaluation/test_string_folder/string{idx}.txt", "w") as f:
+        for match in all_matches:
+            f.write(match + "\n")
+
 
 # Example usage
 if __name__ == "__main__":
-    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?",
-              r"\s", r"\w*", r"a\d"]  # should test r"\d+", r"\w+\s*" after implementation of +
+    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?"]  # should test r"\d+", r"\w+\s*" after implementation of +
     regexs.extend(["a{3}", "b{2,}", "c{1,3}", "(ab){2,4}", "a{1}b{2,5}c{3,}"])
     # regexs = ["(a(b|c))*"]
 
-    for regex in regexs:
+    for idx, regex in enumerate(regexs):
         converter = RegexToCFG(regex)
         print(f"\nSimplified Context-Free Grammar for '{regex}':")
         try:
@@ -392,5 +399,7 @@ if __name__ == "__main__":
             for rule in grammar:
                 print(rule)
             output_to_g4(grammar, regexs.index(regex))
+            generate_test_string(idx, regex)
+            
         except ValueError as e:
             print(f"Error: {e}")
