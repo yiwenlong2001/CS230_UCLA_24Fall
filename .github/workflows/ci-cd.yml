@@ -51,7 +51,9 @@ jobs:
           ./evaluation.sh
         working-directory: evaluation
 
-      # Output the log_all.txt to GitHub Actions log
-      - name: Show Logs
-        run: |
-          cat log_all.txt
+      # Output the log_all.txt to GitHub Artifact
+      - name: Upload log file as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: log-all-artifact
+          path: evaluation/log_all.txt
