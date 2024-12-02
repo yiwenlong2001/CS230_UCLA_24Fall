@@ -11,14 +11,14 @@ class RegexToCFG:
         self.current_status = 1
 
         self.special_symbols = {
-            r'\s': [" ", "\\t", "\\n"],
+            r'\s': ["' '", "'\\t'", "'\\n'"],
             # r'\S': [f"{chr(i)}" for i in range(32, 127) if not (chr(i) in [' ', '\t', '\n'])],
             r'\S': "(A character that is not a whitespace character)",
-            r'\d': [f"{i}" for i in range(10)],
+            r'\d': [f"'{i}'" for i in range(10)],
             # r'\D': [f"{chr(i)}" for i in range(32, 127) if not ('0' <= chr(i) <= '9')],
             r'\D': "(A character that is not a digit)",
-            r'\w': [f"{chr(i)}" for i in range(65, 91)] + [f"{chr(i)}" for i in range(97, 123)] +
-                   [f"{i}" for i in range(10)] + ["_"],
+            r'\w': [f"'{chr(i)}'" for i in range(65, 91)] + [f"'{chr(i)}'" for i in range(97, 123)] +
+                   [f"'{i}'" for i in range(10)] + ["'_'"],
             # r'\W': [f"{chr(i)}" for i in range(32, 48)] + [f"{chr(i)}" for i in range(58, 65)] +
             #        [f"{chr(i)}" for i in range(91, 97)] + [f"{chr(i)}" for i in range(123, 127)],
             r'\W': "(A character that is not a word character)",
