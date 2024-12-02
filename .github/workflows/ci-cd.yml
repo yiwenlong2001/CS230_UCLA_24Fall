@@ -47,7 +47,7 @@ jobs:
       - name: Run Evaluation Script
         run: |
           # Make the shell script executable and run it, logging output to log_all.txt
-          chmod +x evaluation/evaluation.sh
+          chmod +x evaluation.sh
           ./evaluation.sh
         working-directory: evaluation
 
