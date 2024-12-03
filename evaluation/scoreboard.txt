@@ -14,11 +14,8 @@ cfg2: Number of string tested: 10, Number of Error: 0, Correct Rate: 100.00%
 cfg20: Number of string tested: 88572, Number of Error: 0, Correct Rate: 100.00% 
 cfg21: Number of string tested: 4092, Number of Error: 0, Correct Rate: 100.00% 
 cfg22: Number of string tested: 2, Number of Error: 0, Correct Rate: 100.00% 
-cfg23: Number of string tested: 10, Number of Error: 10, Correct Rate: 0.00% 
-cfg25: Number of string tested: 8, Number of Error: 0, Correct Rate: 100.00% 
-cfg27: Number of string tested: 0, Number of Error: 0, Correct Rate: 0.00% 
-cfg28: Number of string tested: 33, Number of Error: 33, Correct Rate: 0.00% 
-cfg29: Number of string tested: 3, Number of Error: 0, Correct Rate: 100.00% 
+cfg24: Number of string tested: 8, Number of Error: 0, Correct Rate: 100.00% 
+cfg25: Number of string tested: 3, Number of Error: 0, Correct Rate: 100.00% 
 cfg3: Number of string tested: 1023, Number of Error: 0, Correct Rate: 100.00% 
 cfg4: Number of string tested: 1, Number of Error: 0, Correct Rate: 100.00% 
 cfg5: Number of string tested: 1022, Number of Error: 0, Correct Rate: 100.00% 

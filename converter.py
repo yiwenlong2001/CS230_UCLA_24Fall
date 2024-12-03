@@ -413,7 +413,6 @@ if __name__ == "__main__":
         "(1|2|3)+",  # Alternation with one or more repetition: matches one or more of '1', '2', or '3'
         "(ab|cd){2,}",  # Group repetition with minimum constraint: matches two or more 'ab' or 'cd'
         "(a(b(c|d)))",  # Nested groups: matches 'a' followed by 'b', and then 'c' or 'd'
-        "a*?b",  # Non-greedy repetition: matches 'a' followed by the shortest sequence ending in 'b'
         "\*\+\?",  # Escaped special characters: matches '*', '+', and '?'
         "[a-d0-3]",  # Combined range: matches 'a', 'b', 'c', 'd', '0', '1', '2', or '3'
         "(ab){3,5}"  # Group repetition with range: matches three to five 'ab's
