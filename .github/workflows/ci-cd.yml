@@ -56,13 +56,11 @@ jobs:
       - name: Upload log file as artifact
         uses: actions/upload-artifact@v3
         with:
-          name: log-all-artifact
-          path: evaluation/evluation_log.txt
-        
-      - name: Upload scoreboard 
-        uses: actions/upload-artifact@v3
-        with:
-          name: scoreboard result
-          path: evaluation/scoreboard.txt
+          name: evluation_result
+          path: |
+            evaluation/evluation_log.txt
+            evaluation/scoreboard.txt
+
+      - name: Print Scoreboard
         run: |
           cat evaluation/scoreboard.txt
