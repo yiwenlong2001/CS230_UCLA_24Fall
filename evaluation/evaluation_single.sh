@@ -10,7 +10,7 @@ CODE_FILE=$2
 
 # 文件路径配置
 G4_FILE="./g4_folder/${GRAMMAR_NAME}.g4"
-INPUT_CODE="./code_folder/${CODE_FILE}"
+INPUT_CODE="./test_string_folder/${CODE_FILE}"
 OUTPUT_DIR="./inter_folder/${GRAMMAR_NAME}"
 
 # 检查语法文件和输入代码文件是否存在
@@ -28,6 +28,7 @@ fi
 mkdir -p "$OUTPUT_DIR"
 
 # 使用 ANTLR 生成解析器
+echo "$OUTPUT_DIR"
 java -jar antlr/antlr-4.13.2-complete.jar -Dlanguage=Python3 "$G4_FILE" -o "$OUTPUT_DIR" 2>&1 | tee -a log.txt
 
 if [ $? -ne 0 ]; then
@@ -35,8 +36,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-LEXER_FILE="${OUTPUT_DIR}/${GRAMMAR_NAME}Lexer.py"
-PARSER_FILE="${OUTPUT_DIR}/${GRAMMAR_NAME}Parser.py"
+LEXER_FILE="${OUTPUT_DIR}/g4_folder/${GRAMMAR_NAME}Lexer.py"
+PARSER_FILE="${OUTPUT_DIR}/g4_folder/${GRAMMAR_NAME}Parser.py"
 
 if [ ! -f "$LEXER_FILE" ] || [ ! -f "$PARSER_FILE" ]; then
     echo "Error: Parser files not generated successfully!" | tee -a log.txt
