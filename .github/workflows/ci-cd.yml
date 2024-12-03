@@ -56,4 +56,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: log-all-artifact
-          path: evaluation/log_all.txt
+          path: evaluation/evluation_log.txt
+        
+      - name: Upload scoreboard 
+        uses: actions/upload-artifact@v3
+        with:
+          name: scoreboard result
+          path: evaluation/scoreboard.txt

@@ -374,7 +374,7 @@ def output_to_g4(grammar, regex_index):
         f.write('WS : [ \\t\\r\\n]+ -> skip ;')
 
 def generate_test_string(idx, regex):
-    all_matches = list(exrex.generate(regex, limit=5))
+    all_matches = list(exrex.generate(regex, limit=10))
     with open(f"evaluation/test_string_folder/string{idx}.txt", "w") as f:
         for match in all_matches:
             f.write(match + "\n")
@@ -382,9 +382,11 @@ def generate_test_string(idx, regex):
 
 # Example usage
 if __name__ == "__main__":
-    regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?"]  # should test r"\d+", r"\w+\s*" after implementation of +
-    regexs.extend(["a{3}", "b{2,}", "c{1,3}", "(ab){2,4}", "a{1}b{2,5}c{3,}"])
-    # regexs = ["a(bc)?"]
+    with open("regex.txt", "r") as file:
+        regexs = file.readlines()
+
+    # Each line includes the newline character, so you may want to strip it
+    regexs = [line.strip() for line in regexs]
 
     for idx, regex in enumerate(regexs):
         converter = RegexToCFG(regex)
