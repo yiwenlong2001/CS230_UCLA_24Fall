@@ -63,3 +63,5 @@ jobs:
         with:
           name: scoreboard result
           path: evaluation/scoreboard.txt
+        run: |
+          cat evaluation/scoreboard.txt
