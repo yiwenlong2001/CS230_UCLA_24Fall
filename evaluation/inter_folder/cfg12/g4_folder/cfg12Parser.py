@@ -14,8 +14,8 @@ def serializedATN():
         1,2,1,2,1,3,1,3,1,3,3,3,20,8,3,1,3,0,0,4,0,2,4,6,0,0,18,0,8,1,0,
         0,0,2,10,1,0,0,0,4,13,1,0,0,0,6,19,1,0,0,0,8,9,3,2,1,0,9,1,1,0,0,
         0,10,11,5,1,0,0,11,12,3,4,2,0,12,3,1,0,0,0,13,14,5,1,0,0,14,15,3,
-        6,3,0,15,5,1,0,0,0,16,17,5,1,0,0,17,20,3,6,3,0,18,20,5,0,0,1,19,
-        16,1,0,0,0,19,18,1,0,0,0,20,7,1,0,0,0,1,19
+        6,3,0,15,5,1,0,0,0,16,20,1,0,0,0,17,18,5,1,0,0,18,20,3,6,3,0,19,
+        16,1,0,0,0,19,17,1,0,0,0,20,7,1,0,0,0,1,19
     ]
 
 class cfg12Parser ( Parser ):
@@ -193,9 +193,6 @@ class cfg12Parser ( Parser ):
             return self.getTypedRuleContext(cfg12Parser.S3Context,0)
 
 
-        def EOF(self):
-            return self.getToken(cfg12Parser.EOF, 0)
-
         def getRuleIndex(self):
             return cfg12Parser.RULE_s3
 
@@ -218,17 +215,16 @@ class cfg12Parser ( Parser ):
             self.state = 19
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [1]:
+            if token in [-1]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 16
-                self.match(cfg12Parser.T__0)
-                self.state = 17
-                self.s3()
+
                 pass
-            elif token in [-1]:
+            elif token in [1]:
                 self.enterOuterAlt(localctx, 2)
+                self.state = 17
+                self.match(cfg12Parser.T__0)
                 self.state = 18
-                self.match(cfg12Parser.EOF)
+                self.s3()
                 pass
             else:
                 raise NoViableAltException(self)

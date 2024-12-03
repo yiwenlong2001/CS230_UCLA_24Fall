@@ -10,13 +10,14 @@ else:
 
 def serializedATN():
     return [
-        4,1,4,25,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,1,0,1,0,1,0,1,0,1,1,1,1,
-        1,1,3,1,16,8,1,1,2,1,2,1,2,3,2,21,8,2,1,3,1,3,1,3,0,0,4,0,2,4,6,
-        0,1,1,1,3,3,22,0,8,1,0,0,0,2,15,1,0,0,0,4,20,1,0,0,0,6,22,1,0,0,
-        0,8,9,3,2,1,0,9,10,3,4,2,0,10,11,3,6,3,0,11,1,1,0,0,0,12,13,5,1,
-        0,0,13,16,3,2,1,0,14,16,5,0,0,1,15,12,1,0,0,0,15,14,1,0,0,0,16,3,
-        1,0,0,0,17,21,5,2,0,0,18,19,5,2,0,0,19,21,3,4,2,0,20,17,1,0,0,0,
-        20,18,1,0,0,0,21,5,1,0,0,0,22,23,7,0,0,0,23,7,1,0,0,0,2,15,20
+        4,1,4,27,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,1,0,1,0,1,0,1,0,1,1,1,1,
+        1,1,3,1,16,8,1,1,2,1,2,1,2,3,2,21,8,2,1,3,1,3,3,3,25,8,3,1,3,0,0,
+        4,0,2,4,6,0,0,25,0,8,1,0,0,0,2,15,1,0,0,0,4,20,1,0,0,0,6,24,1,0,
+        0,0,8,9,3,2,1,0,9,10,3,4,2,0,10,11,3,6,3,0,11,1,1,0,0,0,12,16,1,
+        0,0,0,13,14,5,1,0,0,14,16,3,2,1,0,15,12,1,0,0,0,15,13,1,0,0,0,16,
+        3,1,0,0,0,17,21,5,2,0,0,18,19,5,2,0,0,19,21,3,4,2,0,20,17,1,0,0,
+        0,20,18,1,0,0,0,21,5,1,0,0,0,22,25,1,0,0,0,23,25,5,3,0,0,24,22,1,
+        0,0,0,24,23,1,0,0,0,25,7,1,0,0,0,3,15,20,24
     ]
 
 class cfg10Parser ( Parser ):
@@ -121,9 +122,6 @@ class cfg10Parser ( Parser ):
             return self.getTypedRuleContext(cfg10Parser.S1Context,0)
 
 
-        def EOF(self):
-            return self.getToken(cfg10Parser.EOF, 0)
-
         def getRuleIndex(self):
             return cfg10Parser.RULE_s1
 
@@ -146,17 +144,16 @@ class cfg10Parser ( Parser ):
             self.state = 15
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [1]:
+            if token in [2]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 12
-                self.match(cfg10Parser.T__0)
-                self.state = 13
-                self.s1()
+
                 pass
-            elif token in [-1]:
+            elif token in [1]:
                 self.enterOuterAlt(localctx, 2)
+                self.state = 13
+                self.match(cfg10Parser.T__0)
                 self.state = 14
-                self.match(cfg10Parser.EOF)
+                self.s1()
                 pass
             else:
                 raise NoViableAltException(self)
@@ -234,8 +231,6 @@ class cfg10Parser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def EOF(self):
-            return self.getToken(cfg10Parser.EOF, 0)
 
         def getRuleIndex(self):
             return cfg10Parser.RULE_s3
@@ -255,16 +250,22 @@ class cfg10Parser ( Parser ):
 
         localctx = cfg10Parser.S3Context(self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_s3)
-        self._la = 0 # Token type
         try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 22
-            _la = self._input.LA(1)
-            if not(_la==-1 or _la==3):
-                self._errHandler.recoverInline(self)
+            self.state = 24
+            self._errHandler.sync(self)
+            token = self._input.LA(1)
+            if token in [-1]:
+                self.enterOuterAlt(localctx, 1)
+
+                pass
+            elif token in [3]:
+                self.enterOuterAlt(localctx, 2)
+                self.state = 23
+                self.match(cfg10Parser.T__2)
+                pass
             else:
-                self._errHandler.reportMatch(self)
-                self.consume()
+                raise NoViableAltException(self)
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)

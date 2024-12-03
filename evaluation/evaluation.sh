@@ -4,6 +4,8 @@
 {
     # Check if the input file exists
     INPUT_DIR="./test_string_folder"
+    GRAMMAR_NAME_LIST=()
+    INPUT_CODE_LIST=()
 
     # Iterate over all .g4 files in the g4_folder
     for G4_FILE in ./g4_folder/*.g4; do
@@ -16,7 +18,7 @@
         mkdir -p "$OUTPUT_DIR"
 
         # Use ANTLR to generate the parser
-        java -jar antlr/antlr-4.13.2-complete.jar -Dlanguage=Python3 "$G4_FILE" -o "$OUTPUT_DIR" 2>&1 | tee -a log_all.txt
+        java -jar antlr/antlr-4.13.2-complete.jar -Dlanguage=Python3 "$G4_FILE" -o "$OUTPUT_DIR"
         if [ $? -ne 0 ]; then
             echo "Error: Failed to generate parser from $G4_FILE"
             continue
@@ -36,12 +38,15 @@
         INPUT_CODE="${INPUT_DIR}/string${index}.txt"
 
         if [ ! -f "$INPUT_CODE" ]; then
-            echo "Error: Input code file $INPUT_CODE not found!" | tee -a log_all.txt
+            echo "Error: Input code file $INPUT_CODE not found!"
             exit 1
         fi
-
-        PYTHONPATH="$OUTPUT_DIR" python match_code_all.py "$GRAMMAR_NAME" "$INPUT_CODE"
+        
+        GRAMMAR_NAME_LIST+=("$GRAMMAR_NAME")
+        INPUT_CODE_LIST+=("$INPUT_CODE")
     done
 
-    echo "Evaluation completed. Results saved to log_all.txt"
-} 2>&1 | tee log_all.txt
+    PYTHONPATH="$OUTPUT_DIR" python match_code_all.py "${GRAMMAR_NAME_LIST[@]}" "DELIMITER" "${INPUT_CODE_LIST[@]}"
+
+    echo "Evaluation completed. Results saved to evluation_log.txt"
+} 2>&1 | tee evluation_log.txt

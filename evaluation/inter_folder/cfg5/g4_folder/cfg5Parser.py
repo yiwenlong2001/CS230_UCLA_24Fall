@@ -14,7 +14,7 @@ def serializedATN():
         1,2,1,3,1,3,1,3,1,3,3,3,20,8,3,1,3,0,0,4,0,2,4,6,0,1,1,0,2,3,18,
         0,8,1,0,0,0,2,10,1,0,0,0,4,13,1,0,0,0,6,19,1,0,0,0,8,9,3,6,3,0,9,
         1,1,0,0,0,10,11,5,1,0,0,11,12,3,4,2,0,12,3,1,0,0,0,13,14,7,0,0,0,
-        14,5,1,0,0,0,15,20,5,0,0,1,16,17,3,2,1,0,17,18,3,6,3,0,18,20,1,0,
+        14,5,1,0,0,0,15,20,1,0,0,0,16,17,3,2,1,0,17,18,3,6,3,0,18,20,1,0,
         0,0,19,15,1,0,0,0,19,16,1,0,0,0,20,7,1,0,0,0,1,19
     ]
 
@@ -28,7 +28,7 @@ class cfg5Parser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'a'", "'b'", "'c'" ]
+    literalNames = [ "<INVALID>", "'a'", "'e'", "'c'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "WS" ]
@@ -193,9 +193,6 @@ class cfg5Parser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def EOF(self):
-            return self.getToken(cfg5Parser.EOF, 0)
-
         def s1(self):
             return self.getTypedRuleContext(cfg5Parser.S1Context,0)
 
@@ -228,8 +225,7 @@ class cfg5Parser ( Parser ):
             token = self._input.LA(1)
             if token in [-1]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 15
-                self.match(cfg5Parser.EOF)
+
                 pass
             elif token in [1]:
                 self.enterOuterAlt(localctx, 2)

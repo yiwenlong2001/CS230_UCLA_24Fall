@@ -13,7 +13,7 @@ def serializedATN():
         4,1,4,17,2,0,7,0,2,1,7,1,2,2,7,2,1,0,1,0,1,0,1,1,1,1,1,1,1,2,1,2,
         3,2,15,8,2,1,2,0,0,3,0,2,4,0,0,14,0,6,1,0,0,0,2,9,1,0,0,0,4,14,1,
         0,0,0,6,7,5,1,0,0,7,8,3,4,2,0,8,1,1,0,0,0,9,10,5,2,0,0,10,11,5,3,
-        0,0,11,3,1,0,0,0,12,15,5,0,0,1,13,15,3,2,1,0,14,12,1,0,0,0,14,13,
+        0,0,11,3,1,0,0,0,12,15,1,0,0,0,13,15,3,2,1,0,14,12,1,0,0,0,14,13,
         1,0,0,0,15,5,1,0,0,0,1,14
     ]
 
@@ -145,9 +145,6 @@ class cfg9Parser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def EOF(self):
-            return self.getToken(cfg9Parser.EOF, 0)
-
         def s1(self):
             return self.getTypedRuleContext(cfg9Parser.S1Context,0)
 
@@ -176,8 +173,7 @@ class cfg9Parser ( Parser ):
             token = self._input.LA(1)
             if token in [-1]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 12
-                self.match(cfg9Parser.EOF)
+
                 pass
             elif token in [2]:
                 self.enterOuterAlt(localctx, 2)

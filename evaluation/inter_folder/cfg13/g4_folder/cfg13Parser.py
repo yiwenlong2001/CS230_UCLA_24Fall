@@ -14,10 +14,10 @@ def serializedATN():
         1,1,1,2,1,2,1,2,3,2,19,8,2,1,3,1,3,1,3,3,3,24,8,3,1,4,1,4,1,4,0,
         0,5,0,2,4,6,8,0,0,24,0,10,1,0,0,0,2,12,1,0,0,0,4,18,1,0,0,0,6,23,
         1,0,0,0,8,25,1,0,0,0,10,11,3,2,1,0,11,1,1,0,0,0,12,13,5,1,0,0,13,
-        14,3,4,2,0,14,3,1,0,0,0,15,16,5,1,0,0,16,19,3,6,3,0,17,19,5,0,0,
-        1,18,15,1,0,0,0,18,17,1,0,0,0,19,5,1,0,0,0,20,21,5,1,0,0,21,24,3,
-        8,4,0,22,24,5,0,0,1,23,20,1,0,0,0,23,22,1,0,0,0,24,7,1,0,0,0,25,
-        26,5,0,0,1,26,9,1,0,0,0,2,18,23
+        14,3,4,2,0,14,3,1,0,0,0,15,19,1,0,0,0,16,17,5,1,0,0,17,19,3,6,3,
+        0,18,15,1,0,0,0,18,16,1,0,0,0,19,5,1,0,0,0,20,24,1,0,0,0,21,22,5,
+        1,0,0,22,24,3,8,4,0,23,20,1,0,0,0,23,21,1,0,0,0,24,7,1,0,0,0,25,
+        26,1,0,0,0,26,9,1,0,0,0,2,18,23
     ]
 
 class cfg13Parser ( Parser ):
@@ -152,9 +152,6 @@ class cfg13Parser ( Parser ):
             return self.getTypedRuleContext(cfg13Parser.S3Context,0)
 
 
-        def EOF(self):
-            return self.getToken(cfg13Parser.EOF, 0)
-
         def getRuleIndex(self):
             return cfg13Parser.RULE_s2
 
@@ -177,17 +174,16 @@ class cfg13Parser ( Parser ):
             self.state = 18
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [1]:
+            if token in [-1]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 15
-                self.match(cfg13Parser.T__0)
-                self.state = 16
-                self.s3()
+
                 pass
-            elif token in [-1]:
+            elif token in [1]:
                 self.enterOuterAlt(localctx, 2)
+                self.state = 16
+                self.match(cfg13Parser.T__0)
                 self.state = 17
-                self.match(cfg13Parser.EOF)
+                self.s3()
                 pass
             else:
                 raise NoViableAltException(self)
@@ -212,9 +208,6 @@ class cfg13Parser ( Parser ):
             return self.getTypedRuleContext(cfg13Parser.S4Context,0)
 
 
-        def EOF(self):
-            return self.getToken(cfg13Parser.EOF, 0)
-
         def getRuleIndex(self):
             return cfg13Parser.RULE_s3
 
@@ -237,17 +230,16 @@ class cfg13Parser ( Parser ):
             self.state = 23
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [1]:
+            if token in [-1]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 20
-                self.match(cfg13Parser.T__0)
-                self.state = 21
-                self.s4()
+
                 pass
-            elif token in [-1]:
+            elif token in [1]:
                 self.enterOuterAlt(localctx, 2)
+                self.state = 21
+                self.match(cfg13Parser.T__0)
                 self.state = 22
-                self.match(cfg13Parser.EOF)
+                self.s4()
                 pass
             else:
                 raise NoViableAltException(self)
@@ -268,8 +260,6 @@ class cfg13Parser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def EOF(self):
-            return self.getToken(cfg13Parser.EOF, 0)
 
         def getRuleIndex(self):
             return cfg13Parser.RULE_s4
@@ -291,8 +281,7 @@ class cfg13Parser ( Parser ):
         self.enterRule(localctx, 8, self.RULE_s4)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 25
-            self.match(cfg13Parser.EOF)
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)

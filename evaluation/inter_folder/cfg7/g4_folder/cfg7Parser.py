@@ -10,9 +10,9 @@ else:
 
 def serializedATN():
     return [
-        4,1,2,9,2,0,7,0,2,1,7,1,1,0,1,0,1,1,1,1,1,1,0,0,2,0,2,0,1,1,1,1,
-        1,6,0,4,1,0,0,0,2,6,1,0,0,0,4,5,3,2,1,0,5,1,1,0,0,0,6,7,7,0,0,0,
-        7,3,1,0,0,0,0
+        4,1,2,11,2,0,7,0,2,1,7,1,1,0,1,0,1,1,1,1,3,1,9,8,1,1,1,0,0,2,0,2,
+        0,0,9,0,4,1,0,0,0,2,8,1,0,0,0,4,5,3,2,1,0,5,1,1,0,0,0,6,9,1,0,0,
+        0,7,9,5,1,0,0,8,6,1,0,0,0,8,7,1,0,0,0,9,3,1,0,0,0,1,8
     ]
 
 class cfg7Parser ( Parser ):
@@ -96,8 +96,6 @@ class cfg7Parser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def EOF(self):
-            return self.getToken(cfg7Parser.EOF, 0)
 
         def getRuleIndex(self):
             return cfg7Parser.RULE_s1
@@ -117,16 +115,22 @@ class cfg7Parser ( Parser ):
 
         localctx = cfg7Parser.S1Context(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_s1)
-        self._la = 0 # Token type
         try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 6
-            _la = self._input.LA(1)
-            if not(_la==-1 or _la==1):
-                self._errHandler.recoverInline(self)
+            self.state = 8
+            self._errHandler.sync(self)
+            token = self._input.LA(1)
+            if token in [-1]:
+                self.enterOuterAlt(localctx, 1)
+
+                pass
+            elif token in [1]:
+                self.enterOuterAlt(localctx, 2)
+                self.state = 7
+                self.match(cfg7Parser.T__0)
+                pass
             else:
-                self._errHandler.reportMatch(self)
-                self.consume()
+                raise NoViableAltException(self)
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)

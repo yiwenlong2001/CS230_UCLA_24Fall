@@ -1,20 +1,42 @@
 import sys
-import os
-from antlr4 import *
+from antlr4 import InputStream, CommonTokenStream
+from antlr4.error.ErrorListener import ErrorListener
 import importlib
+
+class CustomErrorListener(ErrorListener):
+    def __init__(self):
+        super(CustomErrorListener, self).__init__()
+        self.errors = []
+
+    def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
+        self.errors.append((line, column, msg))
+
 
 def parse_line(parser, line):
     input_stream = InputStream(line)
     lexer = parser["Lexer"](input_stream)
     token_stream = CommonTokenStream(lexer)
     parser_instance = parser["Parser"](token_stream)
+
+    error_listener = CustomErrorListener()
+    lexer.removeErrorListeners()
+    lexer.addErrorListener(error_listener)
+    parser_instance.removeErrorListeners()
+    parser_instance.addErrorListener(error_listener)
+
     try:
         tree = parser_instance.s()
-        return True, tree.toStringTree(recog=parser_instance)
-    except Exception:
-        return False, None
+        # Check if there were syntax errors
+        if error_listener.errors:
+            return False, None, error_listener.errors
+        return True, tree.toStringTree(recog=parser_instance), None
+    except Exception as e:
+        # Handle unexpected exceptions (e.g., runtime errors in the parser)
+        return False, None, [str(e)]
 
 def main(grammar_name, code_file):
+    scoreboard = {'grammer_name': grammar_name, 'total_lines':0, 'unmatched_lines':0}
+
     output_dir = f"./inter_folder/{grammar_name}/g4_folder"
     sys.path.insert(0, output_dir)
 
@@ -34,30 +56,43 @@ def main(grammar_name, code_file):
         print(f"Error: Code file {code_file} not found!")
         sys.exit(1)
 
-    unmatched_lines = []
     parser = {"Lexer": Lexer, "Parser": Parser}
     print(f"Matching Results for grammar: {grammar_name}")
     for i, line in enumerate(lines, 1):
         line = line.strip()
         if not line:
             continue
-        success, tree = parse_line(parser, line)
+        scoreboard['total_lines']+=1
+        success, tree, err = parse_line(parser, line)
         if success:
             print(f"Line {i}: Matched by {grammar_name}")
             print(f"  Parse Tree: {tree}")
         else:
-            unmatched_lines.append((i, line))
+            print(f"Unmatched Line {i} for {grammar_name}")
+            print(f"ERROR: {err}")
+            scoreboard['unmatched_lines']+=1
+    
+    return scoreboard
 
-    if unmatched_lines:
-        print(f"Unmatched lines for grammar {grammar_name}:")
-        for line_num, content in unmatched_lines:
-            print(f"  Line {line_num}: {content}")
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python match_code.py <grammar_name> <code_file>")
-        sys.exit(1)
+    args = sys.argv[1:]
 
-    grammar_name = sys.argv[1]
-    code_file = sys.argv[2]
-    main(grammar_name, code_file)
+    # Split the arguments into two lists using the delimiter
+    delimiter_index = args.index("DELIMITER")
+    grammar_name_list = args[:delimiter_index]
+    code_file_list = args[delimiter_index + 1:]
+
+    scoreboards=[]
+    for grammar_name, code_file in zip(grammar_name_list, code_file_list):
+        scoreboard = main(grammar_name, code_file)
+        scoreboards.append(scoreboard)
+    
+    
+with open("scoreboard.txt", "w") as file:
+    for scoreboard in scoreboards:
+        total_lines = scoreboard['total_lines']
+        unmatched_lines = scoreboard['unmatched_lines']
+        correct_rate = 1 - unmatched_lines/total_lines if total_lines!=0 else 0
+        formatted_correct_rate = f"{correct_rate:.2%}"
+        file.writelines(f"{scoreboard['grammer_name']}: Number of string tested: {total_lines}, Number of Error: {unmatched_lines}, Correct Rate: {formatted_correct_rate} \n")
