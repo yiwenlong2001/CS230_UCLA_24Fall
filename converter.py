@@ -1,6 +1,5 @@
 import re
 import exrex
-import os
 
 class RegexToCFG:
     def __init__(self, regex):
@@ -107,7 +106,7 @@ class RegexToCFG:
                 self.advance()  # Consume '*'
                 new_status = f's{self.current_status}'
                 self.add_rule(new_status, [base, new_status])
-                self.add_rule(new_status, ['EOF'])
+                self.add_rule(new_status, [' '])
                 self.current_status += 1
                 return new_status
             
@@ -123,7 +122,7 @@ class RegexToCFG:
                 self.advance()  # Consume '?'
                 new_status = f's{self.current_status}'
                 self.add_rule(new_status, [base])
-                self.add_rule(new_status, ['EOF'])  # Allows zero occurrences
+                self.add_rule(new_status, [' '])  # Allows zero occurrences
                 self.current_status += 1
                 return new_status
 
@@ -149,7 +148,7 @@ class RegexToCFG:
                             self.current_status += 1
                         # Add remaining repetitions using Kleene star logic
                         self.add_rule(new_status, [base, new_status])
-                        self.add_rule(new_status, ['EOF'])
+                        self.add_rule(new_status, [' '])
                         return start_status
                     
                     elif n is None:
@@ -181,13 +180,13 @@ class RegexToCFG:
                         for i in range(m, n):
                             if i < n:
                                 # Add ε only up to the penultimate optional state
-                                self.add_rule(new_status, ['EOF'])
+                                self.add_rule(new_status, [' '])
                             optional_status = f's{self.current_status}'
                             self.add_rule(new_status, [base, optional_status])
                             new_status = optional_status
                             self.current_status += 1
                         # Final ε transition after optional repetitions
-                        self.add_rule(new_status, ['EOF'])
+                        self.add_rule(new_status, [' '])
                         return start_status
 
         return base
@@ -385,7 +384,7 @@ def generate_test_string(idx, regex):
 if __name__ == "__main__":
     regexs = ["(a|b)c*", "ab|cd", "a*d", "a(b|c)*d", "a", "(a(b|c))*", "a+", "b?", "(ab)+", "a(bc)?", "a*b+c?"]  # should test r"\d+", r"\w+\s*" after implementation of +
     regexs.extend(["a{3}", "b{2,}", "c{1,3}", "(ab){2,4}", "a{1}b{2,5}c{3,}"])
-    # regexs = ["(a(b|c))*"]
+    # regexs = ["a(bc)?"]
 
     for idx, regex in enumerate(regexs):
         converter = RegexToCFG(regex)
