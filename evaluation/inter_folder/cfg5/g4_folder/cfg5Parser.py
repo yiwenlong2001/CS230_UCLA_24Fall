@@ -28,7 +28,7 @@ class cfg5Parser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'a'", "'e'", "'c'" ]
+    literalNames = [ "<INVALID>", "'a'", "'b'", "'c'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "WS" ]

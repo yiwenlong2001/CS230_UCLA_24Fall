@@ -416,9 +416,6 @@ if __name__ == "__main__":
         "a*?b",  # Non-greedy repetition: matches 'a' followed by the shortest sequence ending in 'b'
         "\*\+\?",  # Escaped special characters: matches '*', '+', and '?'
         "[a-d0-3]",  # Combined range: matches 'a', 'b', 'c', 'd', '0', '1', '2', or '3'
-        "\u00A9",  # Unicode character: matches the copyright symbol '©'
-        "[^\u0000-\u007F]",  # Non-ASCII characters: matches any character outside the ASCII range
-        "[a-z&&[aeiou]]",  # Character class intersection: matches only lowercase vowels
         "(ab){3,5}"  # Group repetition with range: matches three to five 'ab's
     ]
 
