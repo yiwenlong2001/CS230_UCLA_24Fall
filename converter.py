@@ -382,11 +382,51 @@ def generate_test_string(idx, regex):
 
 # Example usage
 if __name__ == "__main__":
-    with open("regex.txt", "r") as file:
-        regexs = file.readlines()
-
-    # Each line includes the newline character, so you may want to strip it
-    regexs = [line.strip() for line in regexs]
+    # with open("regex.txt", "r") as file:
+    #     regexs = file.readlines()
+    #
+    # # Each line includes the newline character, so you may want to strip it
+    # regexs = [line.strip() for line in regexs]
+    regexs = [
+        "(a|b)c*",  # Alternation with repetition: matches 'a' or 'b' followed by zero or more 'c's
+        "ab|cd",  # Simple alternation: matches 'ab' or 'cd'
+        "a*d",  # Kleene star: matches zero or more 'a's followed by 'd'
+        "a(b|c)*d",  # Alternation within repetition: matches 'a', zero or more 'b' or 'c', and 'd'
+        "a",  # Single literal: matches only 'a'
+        "(a(b|c))*",  # Nested grouping: matches zero or more occurrences of 'a' followed by 'b' or 'c'
+        "a+",  # One or more repetition: matches one or more 'a's
+        "b?",  # Optional character: matches zero or one 'b'
+        "(ab)+",  # Group repetition: matches one or more 'ab's
+        "a(bc)?",  # Optional group: matches 'a' followed by zero or one 'bc'
+        "a*b+c?",  # Combination of *, +, ?: matches zero or more 'a's, one or more 'b's, and zero or one 'c'
+        "a{3}",  # Exact repetition: matches exactly three 'a's
+        "b{2,}",  # At least repetition: matches two or more 'b's
+        "c{1,3}",  # Range repetition: matches one to three 'c's
+        "(ab){2,4}",  # Group repetition with range: matches two to four 'ab's
+        "a{1}b{2,5}c{3,}",  # Mixed repetition constraints: matches one 'a', two to five 'b's, and three or more 'c's
+        "[a-z]+",  # Character class: matches one or more lowercase letters
+        "[0-9]{2,4}",  # Digit repetition range: matches two to four digits
+        "a(bc|de)*f",  # Alternation in repetition with suffix: matches 'a', zero or more 'bc' or 'de', and 'f'
+        "a(b|c)+d",  # Alternation in repetition with suffix: matches 'a', one or more 'b' or 'c', and 'd'
+        "a{1,2}(b|c){3}",  # Mixed repetition with alternation: matches one to two 'a's followed by three 'b's or 'c's
+        "\d{3}-\d{2}-\d{4}",  # Escaped character with exact format: matches a Social Security Number-like format
+        "\w+@\w+\.\w{2,3}",  # Email-like pattern: matches simple email addresses
+        "a.b",  # Wildcard character: matches 'a', any single character, and 'b'
+        "a.*z",  # Wildcard with suffix: matches 'a', zero or more of any character, and 'z'
+        "(1|2|3)+",  # Alternation with one or more repetition: matches one or more of '1', '2', or '3'
+        "(ab|cd){2,}",  # Group repetition with minimum constraint: matches two or more 'ab' or 'cd'
+        "[^a-z]",  # Negated character class: matches any character that is not a lowercase letter
+        "(a(b(c|d)))",  # Nested groups: matches 'a' followed by 'b', and then 'c' or 'd'
+        "a(?=b)",  # Positive lookahead: matches 'a' only if followed by 'b'
+        "(?<=a)b",  # Positive lookbehind: matches 'b' only if preceded by 'a'
+        "a.*?b",  # Non-greedy repetition: matches 'a' followed by the shortest sequence ending in 'b'
+        "\*\+\?",  # Escaped special characters: matches '*', '+', and '?'
+        "[a-d0-3]",  # Combined range: matches 'a', 'b', 'c', 'd', '0', '1', '2', or '3'
+        "\u00A9",  # Unicode character: matches the copyright symbol '©'
+        "[^\u0000-\u007F]",  # Non-ASCII characters: matches any character outside the ASCII range
+        "[a-z&&[aeiou]]",  # Character class intersection: matches only lowercase vowels
+        "(ab){3,5}"  # Group repetition with range: matches three to five 'ab's
+    ]
 
     for idx, regex in enumerate(regexs):
         converter = RegexToCFG(regex)
