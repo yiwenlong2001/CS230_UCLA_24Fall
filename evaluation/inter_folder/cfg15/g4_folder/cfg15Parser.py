@@ -10,7 +10,7 @@ else:
 
 def serializedATN():
     return [
-        4,1,4,68,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,
+        4,1,3,68,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,
         2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,1,0,1,0,1,0,1,0,1,1,
         1,1,1,2,1,2,1,2,1,3,1,3,1,3,3,3,37,8,3,1,4,1,4,1,4,1,5,1,5,1,5,1,
         6,1,6,1,6,3,6,48,8,6,1,7,1,7,1,7,3,7,53,8,7,1,8,1,8,1,8,3,8,58,8,
@@ -43,8 +43,7 @@ class cfg15Parser ( Parser ):
 
     literalNames = [ "<INVALID>", "'a'", "'c'", "'b'" ]
 
-    symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "WS" ]
+    symbolicNames = [  ]
 
     RULE_s = 0
     RULE_s1 = 1
@@ -66,7 +65,6 @@ class cfg15Parser ( Parser ):
     T__0=1
     T__1=2
     T__2=3
-    WS=4
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)

@@ -10,10 +10,9 @@ else:
 
 def serializedATN():
     return [
-        4,1,2,12,2,0,7,0,2,1,7,1,1,0,1,0,1,1,1,1,1,1,3,1,10,8,1,1,1,0,0,
-        2,0,2,0,0,10,0,4,1,0,0,0,2,9,1,0,0,0,4,5,3,2,1,0,5,1,1,0,0,0,6,10,
-        1,0,0,0,7,8,5,1,0,0,8,10,3,2,1,0,9,6,1,0,0,0,9,7,1,0,0,0,10,3,1,
-        0,0,0,1,9
+        4,1,8,9,2,0,7,0,2,1,7,1,1,0,1,0,1,1,1,1,1,1,0,0,2,0,2,0,1,1,0,1,
+        8,6,0,4,1,0,0,0,2,6,1,0,0,0,4,5,3,2,1,0,5,1,1,0,0,0,6,7,7,0,0,0,
+        7,3,1,0,0,0,0
     ]
 
 class cfg23Parser ( Parser ):
@@ -26,9 +25,10 @@ class cfg23Parser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'a'" ]
+    literalNames = [ "<INVALID>", "'0'", "'1'", "'2'", "'3'", "'a'", "'b'", 
+                     "'c'", "'d'" ]
 
-    symbolicNames = [ "<INVALID>", "<INVALID>", "WS" ]
+    symbolicNames = [  ]
 
     RULE_s = 0
     RULE_s1 = 1
@@ -37,7 +37,13 @@ class cfg23Parser ( Parser ):
 
     EOF = Token.EOF
     T__0=1
-    WS=2
+    T__1=2
+    T__2=3
+    T__3=4
+    T__4=5
+    T__5=6
+    T__6=7
+    T__7=8
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -97,9 +103,6 @@ class cfg23Parser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def s1(self):
-            return self.getTypedRuleContext(cfg23Parser.S1Context,0)
-
 
         def getRuleIndex(self):
             return cfg23Parser.RULE_s1
@@ -119,24 +122,16 @@ class cfg23Parser ( Parser ):
 
         localctx = cfg23Parser.S1Context(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_s1)
+        self._la = 0 # Token type
         try:
-            self.state = 9
-            self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [-1]:
-                self.enterOuterAlt(localctx, 1)
-
-                pass
-            elif token in [1]:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 7
-                self.match(cfg23Parser.T__0)
-                self.state = 8
-                self.s1()
-                pass
+            self.enterOuterAlt(localctx, 1)
+            self.state = 6
+            _la = self._input.LA(1)
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 510) != 0)):
+                self._errHandler.recoverInline(self)
             else:
-                raise NoViableAltException(self)
-
+                self._errHandler.reportMatch(self)
+                self.consume()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)

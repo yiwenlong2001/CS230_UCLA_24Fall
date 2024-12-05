@@ -10,7 +10,7 @@ else:
 
 def serializedATN():
     return [
-        4,1,2,28,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,1,0,1,0,1,1,1,1,
+        4,1,1,28,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,1,0,1,0,1,1,1,1,
         1,1,1,2,1,2,1,2,3,2,19,8,2,1,3,1,3,1,3,3,3,24,8,3,1,4,1,4,1,4,0,
         0,5,0,2,4,6,8,0,0,24,0,10,1,0,0,0,2,12,1,0,0,0,4,18,1,0,0,0,6,23,
         1,0,0,0,8,25,1,0,0,0,10,11,3,2,1,0,11,1,1,0,0,0,12,13,5,1,0,0,13,
@@ -32,7 +32,7 @@ class cfg13Parser ( Parser ):
 
     literalNames = [ "<INVALID>", "'c'" ]
 
-    symbolicNames = [ "<INVALID>", "<INVALID>", "WS" ]
+    symbolicNames = [  ]
 
     RULE_s = 0
     RULE_s1 = 1
@@ -44,7 +44,6 @@ class cfg13Parser ( Parser ):
 
     EOF = Token.EOF
     T__0=1
-    WS=2
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
