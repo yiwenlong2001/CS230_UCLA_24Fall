@@ -35,6 +35,12 @@ class RegexToCFG:
 
     def parse(self):
         """Parse the regex and build the CFG."""
+        # Validate before parsing
+        try:
+            re.compile(self.regex)
+        except re.error:
+            print("Invalid regex")
+            exit(1)
         expr_symbol = self.regex_expr('')
         if expr_symbol != 's':
             self.add_rule('s', expr_symbol)
