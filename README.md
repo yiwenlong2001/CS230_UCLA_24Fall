@@ -11,4 +11,9 @@ We also wrote for it to take txt files, but we commented it out to keep it simpl
 1. cd to the evaluation folder, run the evaluation.sh script. 
 Log will be generated, and the scoreboard.txt will be updated with new results
 
-2. run the unittest in the test_cfg_generation.py
+```
+cd evaluation
+evaluation.sh
+```
+
+2. Simply run the unittests in the test_cfg_generation.py using IDE
